@@ -3,15 +3,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_new/config/constants/app_theme_manager.dart';
-import 'package:todo_app_new/features/layout_view.dart';
+import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/features/splash/pages/splash_view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ),
+  );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
     ChangeNotifierProvider(

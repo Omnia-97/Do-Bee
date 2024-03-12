@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_new/config/constants/app_theme_manager.dart';
 
 class ContainerAppBarWidget extends StatelessWidget {
   ContainerAppBarWidget({required this.text, super.key});
@@ -11,7 +12,7 @@ class ContainerAppBarWidget extends StatelessWidget {
     return Container(
       width: mediaQuery.width,
       height: mediaQuery.height * 0.2,
-      color: theme.primaryColor,
+      color: AppThemeManager.primaryColor,
       padding: const EdgeInsets.symmetric(
         horizontal: 26,
         vertical: 70,

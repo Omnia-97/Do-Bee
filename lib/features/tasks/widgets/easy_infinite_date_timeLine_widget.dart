@@ -1,5 +1,8 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app_new/config/constants/app_theme_manager.dart';
+import 'package:todo_app_new/features/settings_provider.dart';
 
 class EasyInfiniteDateTimeLineWidget extends StatefulWidget {
   const EasyInfiniteDateTimeLineWidget({super.key});
@@ -16,6 +19,7 @@ class _EasyInfiniteDateTimeLineWidgetState
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var provider = Provider.of<MyProvider>(context);
     return EasyInfiniteDateTimeLine(
       showTimelineHeader: false,
       timeLineProps: const EasyTimeLineProps(
@@ -30,40 +34,52 @@ class _EasyInfiniteDateTimeLineWidgetState
         todayHighlightStyle: TodayHighlightStyle.none,
         todayStyle: DayStyle(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: provider.changeCardColor(),
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: theme.primaryColor),
+            border: Border.all(color: AppThemeManager.primaryColor),
           ),
-          dayNumStyle:
-              theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor),
-          dayStrStyle:
-              theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor),
-          monthStrStyle:
-              theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor),
+          dayNumStyle: theme.textTheme.bodyMedium!.copyWith(
+            color: provider.changeCardTextColor(),
+          ),
+          dayStrStyle: theme.textTheme.bodyMedium!.copyWith(
+            color: provider.changeCardTextColor(),
+          ),
+          monthStrStyle: theme.textTheme.bodyMedium!.copyWith(
+            color: provider.changeCardTextColor(),
+          ),
         ),
         borderColor: Colors.transparent,
-        todayHighlightColor: theme.primaryColor,
+        todayHighlightColor: AppThemeManager.primaryColor,
         activeDayStyle: DayStyle(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
-            border: Border.all(color: Colors.black26),
+            color: provider.changeCardColor(),
+            border: Border.all(color: AppThemeManager.primaryColor),
           ),
-          dayNumStyle:
-              theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor),
-          dayStrStyle:
-              theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor),
-          monthStrStyle:
-              theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor),
+          dayNumStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: provider.changeCardTextColor(),
+          ),
+          dayStrStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: provider.changeCardTextColor(),
+          ),
+          monthStrStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: provider.changeCardTextColor(),
+          ),
         ),
         inactiveDayStyle: DayStyle(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
+            color: provider.changeCardColor(),
           ),
-          dayNumStyle: theme.textTheme.bodyMedium,
-          dayStrStyle: theme.textTheme.bodyMedium,
-          monthStrStyle: theme.textTheme.bodyMedium,
+          dayNumStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: provider.changeCardInactiveColor(),
+          ),
+          dayStrStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: provider.changeCardInactiveColor(),
+          ),
+          monthStrStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: provider.changeCardInactiveColor(),
+          ),
         ),
       ),
       onDateChange: (selectedDate) {

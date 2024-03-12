@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_new/config/constants/app_theme_manager.dart';
 import 'package:todo_app_new/features/settings/pages/settings_view.dart';
 import 'package:todo_app_new/features/tasks/pages/tasks_view.dart';
 
@@ -31,4 +32,30 @@ class MyProvider extends ChangeNotifier {
     currentIndex =index ;
     notifyListeners();
    }
+    Color changeCardColor(){
+    if(themeMode == ThemeMode.light){
+      return AppThemeManager.whiteColor;
+    }
+    else{
+      return AppThemeManager.darkSecondColor;
+    }
+   }
+
+  Color changeCardTextColor(){
+    if(themeMode == ThemeMode.light){
+      return AppThemeManager.primaryColor;
+    }
+    else{
+      return AppThemeManager.whiteColor;
+    }
+  }
+   Color changeCardInactiveColor(){
+    if(themeMode == ThemeMode.light){
+      return AppThemeManager.blackColor;
+    }
+    else{
+      return AppThemeManager.whiteColor;
+    }
+  }
+
 }

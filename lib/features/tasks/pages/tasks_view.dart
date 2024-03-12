@@ -18,7 +18,7 @@ class _TasksViewState extends State<TasksView> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 75),
+          padding: const EdgeInsets.only(bottom: 50),
           child: Stack(
             alignment: const Alignment(0, 2.0),
             clipBehavior: Clip.none,
@@ -28,16 +28,14 @@ class _TasksViewState extends State<TasksView> {
             ],
           ),
         ),
-
         Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: List.generate(
-              10,
-              (index) => const TaskItemWidget(),
-            ),
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return const TaskItemWidget();
+            },
+            itemCount: 10,
           ),
-        )
+        ),
       ],
     );
   }
