@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
+import 'package:todo_app_new/firebase/firebase_functions.dart';
+import 'package:todo_app_new/models/task_model.dart';
 import '../../../config/constants/app_theme_manager.dart';
 
 class TaskItemWidget extends StatelessWidget {
-  const TaskItemWidget({super.key});
+  TaskModel taskModel;
+  TaskItemWidget({required this.taskModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,9 @@ class TaskItemWidget extends StatelessWidget {
         extentRatio: .4,
         children: [
           SlidableAction(
-            onPressed: (context) {},
+            onPressed: (context) {
+              FirebaseFunctions.deleteTask(taskModel.id??"");
+            },
             label: "Delete",
             icon: Icons.delete,
             backgroundColor: Colors.red,
@@ -73,7 +78,7 @@ class TaskItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Play basket ball',
+                  taskModel.title ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.bodyLarge
@@ -92,7 +97,7 @@ class TaskItemWidget extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      '10:30 AM',
+                      taskModel.description ?? "",
                       style: theme.textTheme.bodySmall
                           ?.copyWith(color: inactiveColor),
                     ),
