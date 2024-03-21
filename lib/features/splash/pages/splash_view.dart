@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 
+import '../../login/pages/login_screen.dart';
+
 class SplashView extends StatefulWidget {
   static const String routeName = 'Splash Screen';
   const SplashView({super.key});
@@ -19,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(
         context,
-        LayoutView.routeName,
+        LoginScreen.routeName,
       );
     });
     super.initState();

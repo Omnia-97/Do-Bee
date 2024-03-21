@@ -2,11 +2,14 @@ class TaskModel {
   String? id;
   String? title;
   String? description;
-  int? date;
+  static const String collectionName = 'Tasks';
+  DateTime date;
   bool? isDone;
+  String userId;
 
   TaskModel({
     this.id = "",
+    required this.userId,
     required this.title,
     required this.description,
     required this.date,
@@ -15,8 +18,9 @@ class TaskModel {
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(
           title: json['title'],
+          userId: json['userId'],
           description: json['description'],
-          date: json['date'],
+          date: DateTime.fromMillisecondsSinceEpoch(json['date']),
           id: json['id'],
           isDone: json['isDone'],
         );
@@ -24,8 +28,9 @@ class TaskModel {
   Map<String, dynamic> toJson() {
     return {
       'title': title,
+      'userId': userId,
       'description': description,
-      'date': date,
+      'date': date.millisecondsSinceEpoch ,
       "id": id,
       "isDone": isDone,
     };

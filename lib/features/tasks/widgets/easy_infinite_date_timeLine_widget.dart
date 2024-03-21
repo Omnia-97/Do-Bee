@@ -1,8 +1,9 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/config/constants/app_theme_manager.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
+
+import '../../../core/config/app_theme_manager.dart';
 
 class EasyInfiniteDateTimeLineWidget extends StatefulWidget {
   const EasyInfiniteDateTimeLineWidget({super.key});

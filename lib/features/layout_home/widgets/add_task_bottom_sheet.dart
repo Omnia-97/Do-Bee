@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app_new/config/constants/app_theme_manager.dart';
 import 'package:todo_app_new/features/layout_home/widgets/custom_TextFormField.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:todo_app_new/models/task_model.dart';
+
+import '../../../core/config/app_theme_manager.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -83,13 +85,15 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 backgroundColor: AppThemeManager.primaryColor,
                 padding: const EdgeInsets.all(8),
               ),
-              onPressed: () {
+              onPressed: ()  {
                 TaskModel taskModel = TaskModel(
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                  id: '',
                   title: titleController.text,
                   description: descriptionController.text,
-                  date: DateUtils.dateOnly(chosenTime).millisecondsSinceEpoch,
+                  date: DateUtils.dateOnly(chosenTime),
                 );
-                FirebaseFunctions.addTask(taskModel);
+                 FirebaseFunctions.addTask(taskModel);
                 Navigator.pop(context);
               },
               child: Text(
