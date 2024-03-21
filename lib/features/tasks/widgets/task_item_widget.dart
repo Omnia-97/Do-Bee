@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app_new/features/edit_tasks/pages/edit_task.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:todo_app_new/models/task_model.dart';
-import '../../../config/constants/app_theme_manager.dart';
+
+import '../../../core/config/app_theme_manager.dart';
 
 class TaskItemWidget extends StatelessWidget {
   TaskModel taskModel;
@@ -19,25 +22,71 @@ class TaskItemWidget extends StatelessWidget {
     return Slidable(
       startActionPane: ActionPane(
         motion: const DrawerMotion(),
-        extentRatio: .4,
+        extentRatio: .5,
         children: [
           SlidableAction(
             onPressed: (context) {
-              FirebaseFunctions.deleteTask(taskModel.id??"");
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        'Dear ${provider.userModel!.fullName}',
+                        textAlign: TextAlign.center,
+                      ),
+                      content: Builder(builder: (context) {
+                        return Container(
+                          alignment: Alignment.centerLeft,
+                          width: 250,
+                          height: 40,
+                          child: Text(
+                            'Are you sure ?',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        );
+                      }),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            FirebaseFunctions.deleteTask(taskModel.id ?? "");
+                          },
+                          child: Text(
+                            'Yes',
+                            style: TextStyle(
+                              color: AppThemeManager.primaryColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: AppThemeManager.primaryColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
             },
             label: "Delete",
             icon: Icons.delete,
             backgroundColor: Colors.red,
             borderRadius: BorderRadius.circular(15),
           ),
-        ],
-      ),
-      endActionPane: ActionPane(
-        motion: const DrawerMotion(),
-        extentRatio: .4,
-        children: [
           SlidableAction(
-            onPressed: (context) {},
+            onPressed: (context) {
+              Navigator.pushNamed(context, EditTask.routeName);
+
+            },
             icon: Icons.edit,
             label: 'Edit',
             backgroundColor: AppThemeManager.primaryColor,
@@ -53,7 +102,7 @@ class TaskItemWidget extends StatelessWidget {
           vertical: 10,
         ),
         margin: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: 10,
           vertical: 10,
         ),
         decoration: BoxDecoration(
@@ -75,7 +124,7 @@ class TaskItemWidget extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+
               children: [
                 Text(
                   taskModel.title ?? "",
@@ -87,6 +136,10 @@ class TaskItemWidget extends StatelessWidget {
                 const SizedBox(
                   height: 6,
                 ),
+                Text(taskModel.description ?? '',maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodyLarge
+                      ?.copyWith(color: AppThemeManager.primaryColor),),
                 Row(
                   children: [
                     const Icon(
@@ -97,7 +150,7 @@ class TaskItemWidget extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      taskModel.description ?? "",
+                      DateFormat.yMMMd().format(taskModel.date),
                       style: theme.textTheme.bodySmall
                           ?.copyWith(color: inactiveColor),
                     ),

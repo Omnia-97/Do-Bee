@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/config/constants/app_theme_manager.dart';
+import '../../../core/config/app_theme_manager.dart';
 import '../../settings_provider.dart';
 
 class LanguageBottomSheet extends StatelessWidget {

@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/config/widgets/container_appBar_widget.dart';
-import 'package:todo_app_new/features/tasks/widgets/easy_infinite_date_timeLine_widget.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
-import '../../../config/constants/app_theme_manager.dart';
+import '../../../core/config/app_theme_manager.dart';
+import '../../../core/widgets/container_appBar_widget.dart';
 import '../../../models/task_model.dart';
-import '../../layout_home/widgets/add_task_bottom_sheet.dart';
 import '../../settings_provider.dart';
 import '../widgets/task_item_widget.dart';
 
@@ -35,6 +33,7 @@ class _TasksViewState extends State<TasksView> {
             children: [
               ContainerAppBarWidget(text: 'To Do List'),
               EasyInfiniteDateTimeLine(
+                locale: provider.languageCode,
                 showTimelineHeader: false,
                 timeLineProps: const EasyTimeLineProps(
                   separatorPadding: 20,

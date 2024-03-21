@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/constants/app_theme_manager.dart';
+import '../../../core/config/app_theme_manager.dart';
 
 class CustomTextFormField extends StatefulWidget {
   CustomTextFormField({required this.hintText,super.key, required this.controller});

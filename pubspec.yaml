@@ -46,6 +46,10 @@ dependencies:
   cloud_firestore: ^4.15.7
   firebase_auth: ^4.17.7
   firebase_crashlytics: ^3.4.17
+  text_divider: ^1.0.0
+  icons_plus: ^5.0.0
+  google_sign_in: '^6.2.1'
+  animated_custom_dropdown: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +78,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/@2x/
+    - assets/images/@3x/
     - assets/images/dark_theme/
   #   - images/a_dot_ham.jpeg
 

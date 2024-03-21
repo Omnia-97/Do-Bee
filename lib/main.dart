@@ -1,16 +1,18 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/config/constants/app_theme_manager.dart';
+import 'package:todo_app_new/features/edit_tasks/pages/edit_task.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
+import 'package:todo_app_new/features/login/pages/login_screen.dart';
+import 'package:todo_app_new/features/register/pages/register_screen.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/features/splash/pages/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'core/config/app_theme_manager.dart';
 import 'firebase_options.dart';
 
 
@@ -24,7 +26,6 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseFirestore.instance.disableNetwork();
   const fatalError = true;
   // Non-async exceptions
   FlutterError.onError = (errorDetails) {
@@ -67,12 +68,17 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       themeMode: provider.themeMode,
+      locale: Locale(provider.languageCode),
       theme: AppThemeManager.lightTheme,
       darkTheme: AppThemeManager.darkTheme,
-      initialRoute: SplashView.routeName,
+      initialRoute: provider.firebaseUser!=null ? LayoutView.routeName:
+      SplashView.routeName,
       routes: {
         SplashView.routeName: (context) => const SplashView(),
+        LoginScreen.routeName:(context) =>  LoginScreen(),
+        RegisterScreen.routeName:(context)=>  RegisterScreen(),
         LayoutView.routeName: (context) => const LayoutView(),
+        EditTask.routeName: (context) => const EditTask(),
       },
     );
   }
