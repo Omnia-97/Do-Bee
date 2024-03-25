@@ -9,10 +9,15 @@ import 'package:todo_app_new/models/task_model.dart';
 
 import '../../../core/config/app_theme_manager.dart';
 
-class TaskItemWidget extends StatelessWidget {
+class TaskItemWidget extends StatefulWidget {
   TaskModel taskModel;
   TaskItemWidget({required this.taskModel, super.key});
 
+  @override
+  State<TaskItemWidget> createState() => _TaskItemWidgetState();
+}
+
+class _TaskItemWidgetState extends State<TaskItemWidget> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
@@ -38,9 +43,9 @@ class TaskItemWidget extends StatelessWidget {
                         return Container(
                           alignment: Alignment.centerLeft,
                           width: 250,
-                          height: 40,
+                          height: 50,
                           child: Text(
-                            'Are you sure ?',
+                            'Are you sure to delete this task ?',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
                           ),
@@ -49,7 +54,8 @@ class TaskItemWidget extends StatelessWidget {
                       actions: [
                         ElevatedButton(
                           onPressed: () {
-                            FirebaseFunctions.deleteTask(taskModel.id ?? "");
+                            FirebaseFunctions.deleteTask(widget.taskModel.id ?? "");
+                            Navigator.pop(context);
                           },
                           child: Text(
                             'Yes',
@@ -84,7 +90,7 @@ class TaskItemWidget extends StatelessWidget {
           ),
           SlidableAction(
             onPressed: (context) {
-              Navigator.pushNamed(context, EditTask.routeName);
+              Navigator.pushNamed(context, EditTask.routeName, arguments: widget.taskModel);
 
             },
             icon: Icons.edit,
@@ -113,62 +119,71 @@ class TaskItemWidget extends StatelessWidget {
           children: [
             Container(
               width: 4,
-              height: 80,
+              height: 65,
               decoration: BoxDecoration(
-                color: AppThemeManager.primaryColor,
+                color: widget.taskModel.isDone! ? Colors.green: AppThemeManager.primaryColor,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            const SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                Text(
-                  taskModel.title ?? "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyLarge
-                      ?.copyWith(color: AppThemeManager.primaryColor),
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Text(taskModel.description ?? '',maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyLarge
-                      ?.copyWith(color: AppThemeManager.primaryColor),),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.alarm,
-                      size: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      DateFormat.yMMMd().format(taskModel.date),
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(color: inactiveColor),
-                    ),
-                  ],
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 8,),
+                  Text(
+                    widget.taskModel.title ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyLarge
+                        ?.copyWith(color: widget.taskModel.isDone! ? Colors.green: AppThemeManager.primaryColor, ),
+                  ),
+
+                  Text(widget.taskModel.description ?? '',maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyLarge
+                        ?.copyWith(color:widget.taskModel.isDone! ? Colors.grey: AppThemeManager.primaryColor,fontWeight: FontWeight.bold,),),
+                  SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.alarm,
+                        size: 20,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        DateFormat.yMMMd().format(widget.taskModel.date),
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color:widget.taskModel.isDone! ? Colors.grey: inactiveColor),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: AppThemeManager.primaryColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(
-                Icons.done_rounded,
-                size: 35,
-                color: AppThemeManager.whiteColor,
+            InkWell(
+              onTap: (){
+                widget.taskModel.isDone = !widget.taskModel.isDone!;
+                FirebaseFunctions.updateTask(widget.taskModel);
+
+                },
+              child:  widget.taskModel.isDone! ?
+                  Text('Done!', style: theme.textTheme.titleLarge?.copyWith(color: Colors.green,),)
+              :Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: AppThemeManager.primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.done_rounded,
+                  size: 35,
+                  color: AppThemeManager.whiteColor,
+                ),
               ),
             ),
           ],

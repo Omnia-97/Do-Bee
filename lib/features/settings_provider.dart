@@ -22,6 +22,7 @@ class MyProvider extends ChangeNotifier {
     userModel = await FirebaseFunctions.readUser();
     notifyListeners();
   }
+
   void changeThemeMode(ThemeMode mode) {
     if(themeMode == mode){
       return;

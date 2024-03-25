@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName:(context) =>  LoginScreen(),
         RegisterScreen.routeName:(context)=>  RegisterScreen(),
         LayoutView.routeName: (context) => const LayoutView(),
-        EditTask.routeName: (context) => const EditTask(),
+        EditTask.routeName: (context) =>  EditTask(),
       },
     );
   }

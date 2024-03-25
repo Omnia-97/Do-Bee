@@ -13,7 +13,7 @@ class TaskModel {
     required this.title,
     required this.description,
     required this.date,
-    this.isDone = false,
+    this.isDone = true,
   });
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(

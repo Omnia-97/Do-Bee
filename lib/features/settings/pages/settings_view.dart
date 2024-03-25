@@ -94,8 +94,11 @@ class SettingsView extends StatelessWidget {
                 height: 10,
               ),
               CustomDropdown(
-                initialItem: themeList.first,
-                  items: themeList,
+                initialItem: appLocalizations.light,
+                  items: [
+                    appLocalizations.dark,
+                    appLocalizations.light,
+                  ],
                   decoration: CustomDropdownDecoration(
                     closedSuffixIcon: ImageIcon(
                       AssetImage('assets/images/arrow_down.png'),
@@ -114,9 +117,13 @@ class SettingsView extends StatelessWidget {
 
                   ),
                   onChanged: (value){
-
-
+                  if(value == appLocalizations.dark){
+                    provider.changeThemeMode(ThemeMode.dark);
+                  }else if(value == appLocalizations.light){
+                    provider.changeThemeMode(ThemeMode.light);
                   }
+
+                }
 
               ),
            /* Container(
@@ -151,27 +158,7 @@ class SettingsView extends StatelessWidget {
           ],),
         ),
 
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 100 ),
-          child: SizedBox(
-            width: mediaQuery.width,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                 backgroundColor:  Color(0xFFDFECDB).withOpacity(.7),
-                side: BorderSide(color: AppThemeManager.primaryColor),
-              ),
-                onPressed: (){
-                GoogleSignIn googleSignIn = GoogleSignIn();
-                googleSignIn.disconnect();
-                  FirebaseFunctions.signOut();
-                  Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-                }, child:Text('Log Out', style: theme.bodyMedium!.copyWith(fontSize: 18), ),),
-          ),
-        ),
+
 
       ],
     );
