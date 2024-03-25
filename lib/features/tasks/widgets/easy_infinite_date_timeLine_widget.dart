@@ -22,7 +22,6 @@ class _EasyInfiniteDateTimeLineWidgetState
     var theme = Theme.of(context);
     var provider = Provider.of<MyProvider>(context);
     return EasyInfiniteDateTimeLine(
-
       showTimelineHeader: false,
       timeLineProps: const EasyTimeLineProps(
         separatorPadding: 20,

@@ -33,19 +33,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       decoration: InputDecoration(
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppThemeManager.primaryColor),
+          borderSide: const BorderSide(color: AppThemeManager.primaryColor),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppThemeManager.primaryColor),
+          borderSide: const BorderSide(color: AppThemeManager.primaryColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppThemeManager.primaryColor),
+          borderSide: const BorderSide(color: AppThemeManager.primaryColor),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppThemeManager.primaryColor),
+          borderSide: const BorderSide(color: AppThemeManager.primaryColor),
         ),
         hintText: widget.hintText,
         hintStyle: theme.textTheme.displayLarge

@@ -54,7 +54,8 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                       actions: [
                         ElevatedButton(
                           onPressed: () {
-                            FirebaseFunctions.deleteTask(widget.taskModel.id ?? "");
+                            FirebaseFunctions.deleteTask(
+                                widget.taskModel.id ?? "");
                             Navigator.pop(context);
                           },
                           child: Text(
@@ -90,8 +91,8 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
           ),
           SlidableAction(
             onPressed: (context) {
-              Navigator.pushNamed(context, EditTask.routeName, arguments: widget.taskModel);
-
+              Navigator.pushNamed(context, EditTask.routeName,
+                  arguments: widget.taskModel);
             },
             icon: Icons.edit,
             label: 'Edit',
@@ -121,30 +122,44 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
               width: 4,
               height: 65,
               decoration: BoxDecoration(
-                color: widget.taskModel.isDone! ? Colors.green: AppThemeManager.primaryColor,
+                color: widget.taskModel.isDone!
+                    ? Colors.green
+                    : AppThemeManager.primaryColor,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 8,),
+                  SizedBox(
+                    height: 8,
+                  ),
                   Text(
                     widget.taskModel.title ?? "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyLarge
-                        ?.copyWith(color: widget.taskModel.isDone! ? Colors.green: AppThemeManager.primaryColor, ),
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: widget.taskModel.isDone!
+                          ? Colors.green
+                          : AppThemeManager.primaryColor,
+                    ),
                   ),
-
-                  Text(widget.taskModel.description ?? '',maxLines: 1,
+                  Text(
+                    widget.taskModel.description ?? '',
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyLarge
-                        ?.copyWith(color:widget.taskModel.isDone! ? Colors.grey: AppThemeManager.primaryColor,fontWeight: FontWeight.bold,),),
-                  SizedBox(height: 10,),
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: widget.taskModel.isDone!
+                          ? Colors.grey
+                          : AppThemeManager.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       const Icon(
@@ -156,8 +171,10 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                       ),
                       Text(
                         DateFormat.yMMMd().format(widget.taskModel.date),
-                        style: theme.textTheme.bodySmall
-                            ?.copyWith(color:widget.taskModel.isDone! ? Colors.grey: inactiveColor),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                            color: widget.taskModel.isDone!
+                                ? Colors.grey
+                                : inactiveColor),
                       ),
                     ],
                   ),
@@ -166,25 +183,29 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
             ),
             const Spacer(),
             InkWell(
-              onTap: (){
+              onTap: () {
                 widget.taskModel.isDone = !widget.taskModel.isDone!;
                 FirebaseFunctions.updateTask(widget.taskModel);
-
-                },
-              child:  widget.taskModel.isDone! ?
-                  Text('Done!', style: theme.textTheme.titleLarge?.copyWith(color: Colors.green,),)
-              :Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: AppThemeManager.primaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.done_rounded,
-                  size: 35,
-                  color: AppThemeManager.whiteColor,
-                ),
-              ),
+              },
+              child: widget.taskModel.isDone!
+                  ? Text(
+                      'Done!',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: Colors.green,
+                      ),
+                    )
+                  : Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        color: AppThemeManager.primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Icon(
+                        Icons.done_rounded,
+                        size: 35,
+                        color: AppThemeManager.whiteColor,
+                      ),
+                    ),
             ),
           ],
         ),

@@ -16,33 +16,38 @@ class CustomIconText extends StatelessWidget {
           child: Container(
             width: 309,
             height: 45,
+            decoration: BoxDecoration(
+              color: const Color(0xFFDFECDB),
+              boxShadow: [
+                BoxShadow(
+                  color: AppThemeManager.primaryColor.withOpacity(.5),
+                  blurRadius: 13,
+                  offset: const Offset(0, 1),
+                )
+              ],
+              borderRadius: BorderRadius.circular(15),
+            ),
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 15 ),
+                  padding: const EdgeInsets.only(left: 15),
                   child: IconButton(
                     onPressed: () {},
                     icon: icon,
                   ),
                 ),
-
-                SizedBox(width: 40,),
+                const SizedBox(
+                  width: 40,
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(right:30 ),
-                  child: Text(iconText , style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),),
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Text(
+                    iconText,
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500),
+                  ),
                 ),
               ],
-            ),
-            decoration: BoxDecoration(
-              color:  Color(0xFFDFECDB),
-              boxShadow: [
-                BoxShadow(
-                  color: AppThemeManager.primaryColor.withOpacity(.5),
-                  blurRadius: 13,
-                  offset: Offset(0, 1),
-                )
-              ],
-              borderRadius: BorderRadius.circular(15),
             ),
           ),
         ),

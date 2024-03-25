@@ -7,21 +7,21 @@ class CustomTextFormFieldRegister extends StatefulWidget {
       this.suffixIcon,
       this.isPassword,
       this.controller,
-        this.keyboardType,
-        this.onTap,
-        this.onChanged,
-        this.onValidate,
-        this.onFieldSubmitted,
-        this.onEditingComplete,
-        this.onSaved,
+      this.keyboardType,
+      this.onTap,
+      this.onChanged,
+      this.onValidate,
+      this.onFieldSubmitted,
+      this.onEditingComplete,
+      this.onSaved,
       super.key});
   String hintText;
   Widget? suffixIcon;
   final bool? isPassword;
   final TextEditingController? controller;
-  final TextInputType? keyboardType ;
-  final void Function()? onTap,onEditingComplete ;
-  final void Function(String?)? onChanged , onFieldSubmitted, onSaved;
+  final TextInputType? keyboardType;
+  final void Function()? onTap, onEditingComplete;
+  final void Function(String?)? onChanged, onFieldSubmitted, onSaved;
   final String? Function(String?)? onValidate;
 
   @override
@@ -39,19 +39,18 @@ class _CustomTextFormFieldRegisterState
       onChanged: widget.onChanged,
       validator: widget.onValidate,
       onSaved: widget.onSaved,
-      onFieldSubmitted:widget.onFieldSubmitted ,
+      onFieldSubmitted: widget.onFieldSubmitted,
       onEditingComplete: widget.onEditingComplete,
       controller: widget.controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      keyboardType: widget.keyboardType ,
+      keyboardType: widget.keyboardType,
       obscureText: widget.isPassword ?? false ? obscureText : !obscureText,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey)
-        ),
-        focusedBorder: UnderlineInputBorder(
+        hintStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+        enabledBorder:
+            const UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: AppThemeManager.primaryColor,
             width: 2.5,

@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
 import '../../login/widgets/custom_textformfield.dart';
 
@@ -30,6 +29,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     var theme = Theme.of(context);
+    var appLocalization = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -49,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
           toolbarHeight: 115,
           centerTitle: true,
           title: Text(
-            'Create Account',
+            appLocalization.createAccount,
             style: theme.textTheme.titleLarge,
           ),
         ),
@@ -65,18 +65,18 @@ class RegisterScreen extends StatelessWidget {
                     height: mediaQuery.height * 0.17,
                   ),
                   Text(
-                    'Full Name',
+                    appLocalization.fullName,
                     style: theme.textTheme.bodySmall
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
                   CustomTextFormFieldRegister(
-                    hintText: 'Enter your Full Name',
+                    hintText: appLocalization.nameHint,
                     suffixIcon: Icon(Icons.person),
                     keyboardType: TextInputType.text,
                     controller: fullNameController,
                     onValidate: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "please enter your full name";
+                        return appLocalization.validateName;
                       }
                       return null;
                     },
@@ -85,22 +85,22 @@ class RegisterScreen extends StatelessWidget {
                     height: 40,
                   ),
                   Text(
-                    'E-mail',
+                    appLocalization.email,
                     style: theme.textTheme.bodySmall
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
                   CustomTextFormFieldRegister(
-                    hintText: 'Enter your e-mail address',
+                    hintText: appLocalization.emailHint,
                     suffixIcon: Icon(Icons.email_rounded),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     onValidate: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "E-mail required";
+                        return appLocalization.validateEmail;
                       }
                       var regexp = RegExp(emailPattern);
                       if (!regexp.hasMatch(value)) {
-                        return "Invalid email";
+                        return appLocalization.validateEmail2;
                       }
                       return null;
                     },
@@ -109,21 +109,21 @@ class RegisterScreen extends StatelessWidget {
                     height: 40,
                   ),
                   Text(
-                    'Password',
+                    appLocalization.password,
                     style: theme.textTheme.bodySmall
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
                   CustomTextFormFieldRegister(
-                    hintText: 'Enter your password',
+                    hintText: appLocalization.passwordHint,
                     isPassword: true,
                     controller: passwordController,
                     onValidate: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "Password required";
+                        return appLocalization.validatePassword;
                       }
                       var regexp = RegExp(passPattern);
                       if (!regexp.hasMatch(value)) {
-                        return "Invalid password \n* the password must be Minimum eight characters,\n* at least one uppercase letter,\n* one lowercase letter,\n* one number and one special character";
+                        return appLocalization.validatePassword2;
                       }
                       return null;
                     },
@@ -132,20 +132,20 @@ class RegisterScreen extends StatelessWidget {
                     height: 40,
                   ),
                   Text(
-                    'Confirm Password',
+                    appLocalization.confirmPassword,
                     style: theme.textTheme.bodySmall
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
                   CustomTextFormFieldRegister(
-                    hintText: 'Enter your confirm password',
+                    hintText: appLocalization.confirmHint,
                     isPassword: true,
                     controller: confirmPasswordController,
                     onValidate: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "Confirm password required";
+                        return appLocalization.validateConfirm;
                       }
                       if (value != passwordController.text) {
-                        return "password not matched";
+                        return appLocalization.validateConfirm2;
                       }
                       return null;
                     },
@@ -169,18 +169,18 @@ class RegisterScreen extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text('Error'),
+                                    title: Text(appLocalization.error),
                                     content: Text(errorMessage),
                                     actions: [
                                       ElevatedButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Text('try again'),
+                                        child: Text(appLocalization.tryAgain),
                                       ),
                                       ElevatedButton(
                                         onPressed: () {},
-                                        child: Text('cancel'),
+                                        child: Text(appLocalization.cancel),
                                       ),
                                     ],
                                   );
@@ -199,7 +199,7 @@ class RegisterScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Create Account',
+                          appLocalization.create,
                           style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.white),
                         ),

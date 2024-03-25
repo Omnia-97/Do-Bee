@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app_new/features/edit_tasks/pages/edit_task.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/features/login/pages/login_screen.dart';
@@ -15,14 +16,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'core/config/app_theme_manager.dart';
 import 'firebase_options.dart';
 
-
+GlobalKey<NavigatorState> navigatorKey =GlobalKey<NavigatorState>();
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
+  MyProvider myProvider = MyProvider();
+  await myProvider.setItems();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -50,8 +48,14 @@ void main() async{
     }
     return true;
   };
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
   runApp(
-    ChangeNotifierProvider(
+    ChangeNotifierProvider<MyProvider>(
         create: (context) => MyProvider(), child: const MyApp()),
   );
 }
@@ -64,6 +68,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
