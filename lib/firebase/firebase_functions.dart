@@ -56,6 +56,10 @@ class FirebaseFunctions {
   static Future<void> deleteTask(String id) {
     return getTaskCollection().doc(id).delete();
   }
+  static Future<void> updateTask( TaskModel taskModel) {
+    var taskCollection = getTaskCollection();
+    return taskCollection.doc(taskModel.id).update(taskModel.toJson());
+  }
 
   static void createUserAccount(
       {required String email,

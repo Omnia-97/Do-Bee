@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import '../../../core/config/app_theme_manager.dart';
 import '../../../core/widgets/container_appBar_widget.dart';
 import '../../../models/task_model.dart';
+import '../../login/pages/login_screen.dart';
 import '../../settings_provider.dart';
 import '../widgets/task_item_widget.dart';
 
@@ -31,7 +33,35 @@ class _TasksViewState extends State<TasksView> {
             alignment: const Alignment(0, 2.0),
             clipBehavior: Clip.none,
             children: [
-              ContainerAppBarWidget(text: 'To Do List'),
+              Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  ContainerAppBarWidget(text: "To Do List"),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 42),
+                    child: Text(
+                      'Log Out',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      GoogleSignIn googleSignIn = GoogleSignIn();
+                      googleSignIn.disconnect();
+                      FirebaseFunctions.signOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginScreen.routeName, (route) => false);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               EasyInfiniteDateTimeLine(
                 locale: provider.languageCode,
                 showTimelineHeader: false,

@@ -4,8 +4,9 @@ import '../config/app_theme_manager.dart';
 
 
 class ContainerAppBarWidget extends StatelessWidget {
-  ContainerAppBarWidget({required this.text, super.key});
+  ContainerAppBarWidget({required this.text, super.key, });
   String text;
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +20,11 @@ class ContainerAppBarWidget extends StatelessWidget {
         horizontal: 26,
         vertical: 70,
       ),
-      child: Text(
+      child:
+      Text(
         text,
-        style: theme.textTheme.titleLarge,
-      ),
+        style: theme.textTheme.titleLarge
+      )
     );
   }
 }

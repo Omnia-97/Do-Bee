@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:text_divider/text_divider.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
+import 'package:todo_app_new/features/login/pages/forgot_pw_page.dart';
 import 'package:todo_app_new/features/login/widgets/custom_textformfield.dart';
 import 'package:todo_app_new/features/register/pages/register_screen.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
@@ -104,11 +105,26 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    'Forgot password ?',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return ForgotPasswordPage();
+                            }),
+                          );
+                        },
+                        child: Text(
+                          'Forgot password ?',
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   SizedBox(
                     width: 295,
@@ -165,22 +181,6 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  /*Text(
-                    'OR',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Colors.black),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, RegisterScreen.routeName);
-
-                    },
-                    child: Text(
-                      'Create new account !..',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Colors.black)
-                    ),
-                  ),*/
                   Padding(
                     padding: const EdgeInsets.only(left: 17, right: 23),
                     child: TextDivider.horizontal(
@@ -200,9 +200,10 @@ class LoginScreen extends StatelessWidget {
                     height: 25,
                   ),
                   GestureDetector(
-                    onTap: () async{
-                     FirebaseFunctions.signInWithGoogle();
-                  Navigator.pushNamedAndRemoveUntil(context, LayoutView.routeName, (route) => false);
+                    onTap: () async {
+                      FirebaseFunctions.signInWithGoogle();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LayoutView.routeName, (route) => false);
                     },
                     child: CustomIconText(
                         icon: Brand(Brands.google),
@@ -238,7 +239,6 @@ class LoginScreen extends StatelessWidget {
                               color: Color(0xff474747)),
                         ),
                         GestureDetector(
-
                           onTap: () {
                             Navigator.pushNamed(
                                 context, RegisterScreen.routeName);

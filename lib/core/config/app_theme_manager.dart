@@ -61,6 +61,10 @@ class AppThemeManager {
         fontSize: 12,
         fontWeight: FontWeight.w400,
       ),
+      displayMedium: GoogleFonts.roboto(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      ),
     ),
   );
   static ThemeData darkTheme = ThemeData(
