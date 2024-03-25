@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:todo_app_new/models/task_model.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
 import '../../../core/widgets/container_appBar_widget.dart';
 import '../../layout_home/widgets/custom_TextFormField.dart';
@@ -29,6 +29,8 @@ class _EditTaskState extends State<EditTask> {
     var mediaQuery = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     var provider = Provider.of<MyProvider>(context);
+    var appLocalization = AppLocalizations.of(context)!;
+    bool isTextDirectionRTL = Directionality.of(context) == TextDirection.rtl;
     return Drawer(
       child: Form(
         child: Stack(
@@ -58,7 +60,7 @@ class _EditTaskState extends State<EditTask> {
                       SizedBox(
                         width: 4,
                       ),
-                      Text('To Do List', style: theme.textTheme.titleLarge),
+                      Text(appLocalization.todoList, style: theme.textTheme.titleLarge),
                     ],
                   ),
                 ),
@@ -82,7 +84,7 @@ class _EditTaskState extends State<EditTask> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Edit Task',
+                          appLocalization.editTask,
                           style: theme.textTheme.bodyLarge?.copyWith(
                             color: Color(
                               0xFF383838,
@@ -93,7 +95,7 @@ class _EditTaskState extends State<EditTask> {
                           height: 30,
                         ),
                         CustomTextFormField(
-                          hintText: 'enter your task title',
+                          hintText: appLocalization.enterTitle,
                           //controller: titleController..text = task.title ??'',
                           initialValue: task.title,
                           onChanged: (value){
@@ -104,7 +106,7 @@ class _EditTaskState extends State<EditTask> {
                           height: 20,
                         ),
                         CustomTextFormField(
-                          hintText: 'enter your task details',
+                          hintText: appLocalization.enterDescription,
                           //controller: descriptionController..text = task.description ??'',
                           initialValue: task.description,
                           onChanged: (value){
@@ -114,15 +116,29 @@ class _EditTaskState extends State<EditTask> {
                         const SizedBox(
                           height: 28,
                         ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Select time',
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              fontSize: 20,
+                        if(isTextDirectionRTL)...[
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              appLocalization.selectDate,
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                        ),
+                        ], if(!isTextDirectionRTL)...[
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              appLocalization.selectDate,
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ],
+
+
                         const SizedBox(
                           height: 20,
                         ),
@@ -152,7 +168,7 @@ class _EditTaskState extends State<EditTask> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             child: Text(
-                              'Save Changes',
+                              appLocalization.saveEdit,
                               style: theme.textTheme.displayLarge?.copyWith(
                                 color: Colors.white,
                               ),
@@ -172,6 +188,7 @@ class _EditTaskState extends State<EditTask> {
   }
 
   changeDate(BuildContext context,DateTime time) async {
+
     DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_new/features/layout_home/widgets/custom_TextFormField.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:todo_app_new/models/task_model.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
@@ -22,6 +22,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var appLocalizations = AppLocalizations.of(context)!;
+    bool isTextDirectionRTL = Directionality.of(context) == TextDirection.rtl;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -33,7 +35,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Add new Task',
+              appLocalizations.addTask,
               style: theme.textTheme.bodyLarge?.copyWith(
                 fontSize: 20,
               ),
@@ -42,11 +44,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               height: 15,
             ),
             CustomTextFormField(
-              hintText: 'enter your task title',
+              hintText: appLocalizations.enterTitle,
               controller: titleController,
               onValidate: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "please enter your password";
+                  return appLocalizations.validateTitle;
                 }
                 return null;
               },
@@ -55,11 +57,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               height: 20,
             ),
             CustomTextFormField(
-              hintText: 'enter your task details',
+              hintText: appLocalizations.enterDescription,
               controller: descriptionController,
               onValidate: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "please enter your password";
+                  return appLocalizations.validateDescription;
                 }
                 return null;
               },
@@ -67,15 +69,28 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             const SizedBox(
               height: 28,
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Select time',
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  fontSize: 20,
+            if (!isTextDirectionRTL) ...[
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  appLocalizations.selectDate,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
+            ],
+            if (isTextDirectionRTL) ...[
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  appLocalizations.selectDate,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ],
             const SizedBox(
               height: 15,
             ),
@@ -100,23 +115,21 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   backgroundColor: AppThemeManager.primaryColor,
                   padding: const EdgeInsets.all(8),
                 ),
-                onPressed: ()  {
-                    TaskModel taskModel = TaskModel(
-                      userId: FirebaseAuth.instance.currentUser!.uid,
-                      id: '',
-                      title: titleController.text,
-                      description: descriptionController.text,
-                      date: DateUtils.dateOnly(chosenTime),
-                    );
-                    if (formKey.currentState!.validate()){
-                      FirebaseFunctions.addTask(taskModel);
-                    }
-                    Navigator.pop(context);
-
-
+                onPressed: () {
+                  TaskModel taskModel = TaskModel(
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                    id: '',
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    date: DateUtils.dateOnly(chosenTime),
+                  );
+                  if (formKey.currentState!.validate()) {
+                    FirebaseFunctions.addTask(taskModel);
+                  }
+                  Navigator.pop(context);
                 },
                 child: Text(
-                  'Add Task',
+                  appLocalizations.addTaskButton,
                   style: theme.textTheme.displayLarge?.copyWith(
                     color: AppThemeManager.whiteColor,
                     fontSize: 24,

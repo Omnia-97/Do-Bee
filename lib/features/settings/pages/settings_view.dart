@@ -11,15 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsView extends StatelessWidget {
     SettingsView({super.key});
-    List<String> languagesList = [
-      'English',
-      'عربى',
-    ];
 
-    List<String> themeList = [
-      'Dark',
-      'Light',
-    ];
 
 
   @override
@@ -28,6 +20,15 @@ class SettingsView extends StatelessWidget {
     var provider = Provider.of<MyProvider>(context);
     var mediaQuery = MediaQuery.of(context).size;
     var appLocalizations = AppLocalizations.of(context)!;
+    List<String> languagesList = [
+      appLocalizations.english,
+      appLocalizations.arabic
+    ];
+
+    List<String> themeList = [
+      'Dark',
+      'Light',
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

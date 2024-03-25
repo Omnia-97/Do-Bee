@@ -8,7 +8,7 @@ import 'package:todo_app_new/features/login/widgets/custom_textformfield.dart';
 import 'package:todo_app_new/features/register/pages/register_screen.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
 import '../widgets/customicon_text.dart';
 
@@ -23,7 +23,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     var theme = Theme.of(context);
+    var appLocalizations = AppLocalizations.of(context)!;
     var provider = Provider.of<MyProvider>(context);
+    bool isTextDirectionRTL = Directionality.of(context) == TextDirection.rtl;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -33,14 +35,14 @@ class LoginScreen extends StatelessWidget {
         color: Color(0xFFDFECDB),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: provider.changeScaffoldColor(),
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           toolbarHeight: 115,
           centerTitle: true,
           title: Text(
-            'LogIn',
+            appLocalizations.login,
             style: theme.textTheme.titleLarge!.copyWith(fontSize: 24),
           ),
         ),
@@ -56,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                     height: mediaQuery.height * 0.17,
                   ),
                   Text(
-                    'Welcome back!',
+                    appLocalizations.welcome,
                     textAlign: TextAlign.start,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
@@ -67,18 +69,18 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                   ),
                   Text(
-                    'E-mail',
+                    appLocalizations.email,
                     style: theme.textTheme.bodySmall
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
                   CustomTextFormFieldRegister(
-                    hintText: 'Enter your e-mail address',
+                    hintText: appLocalizations.emailHint,
                     suffixIcon: Icon(Icons.email_rounded),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     onValidate: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "please enter your email";
+                        return appLocalizations.validateEmail;
                       }
                       return null;
                     },
@@ -87,17 +89,17 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                   ),
                   Text(
-                    'Password',
+                    appLocalizations.password,
                     style: theme.textTheme.bodySmall
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
                   CustomTextFormFieldRegister(
-                    hintText: 'Enter your password',
+                    hintText: appLocalizations.passwordHint,
                     isPassword: true,
                     controller: passwordController,
                     onValidate: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "please enter your password";
+                        return appLocalizations.validatePassword;
                       }
                       return null;
                     },
@@ -118,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                           );
                         },
                         child: Text(
-                          'Forgot password ?',
+                          appLocalizations.forgetPassword,
                         ),
                       ),
                     ],
@@ -143,18 +145,18 @@ class LoginScreen extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text('Error'),
+                                    title: Text(appLocalizations.error),
                                     content: Text(error),
                                     actions: [
                                       ElevatedButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Text('try again'),
+                                        child: Text(appLocalizations.tryAgain),
                                       ),
                                       ElevatedButton(
                                         onPressed: () {},
-                                        child: Text('cancel'),
+                                        child: Text(appLocalizations.cancel),
                                       ),
                                     ],
                                   );
@@ -169,7 +171,7 @@ class LoginScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           )),
                       child: Text(
-                        'Login',
+                        appLocalizations.login,
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodyMedium?.copyWith(
                             color: Colors.white,
@@ -185,7 +187,7 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 17, right: 23),
                     child: TextDivider.horizontal(
                         text: Text(
-                          '  OR',
+                          appLocalizations.or,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 13,
@@ -207,7 +209,7 @@ class LoginScreen extends StatelessWidget {
                     },
                     child: CustomIconText(
                         icon: Brand(Brands.google),
-                        iconText: 'Login with Google'),
+                        iconText: appLocalizations.gogLogin),
                   ),
                   SizedBox(
                     height: 20,
@@ -220,7 +222,7 @@ class LoginScreen extends StatelessWidget {
                           color: Color(0xff1778F2),
                           size: 30,
                         ),
-                        iconText: 'Login with Facebook'),
+                        iconText: appLocalizations.faceLogin),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -232,7 +234,7 @@ class LoginScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Don’t have an account? ',
+                          appLocalizations.createAccount,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
@@ -244,7 +246,7 @@ class LoginScreen extends StatelessWidget {
                                 context, RegisterScreen.routeName);
                           },
                           child: Text(
-                            'Register',
+                            appLocalizations.register,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
