@@ -6,7 +6,7 @@ import 'package:todo_app_new/features/edit_tasks/pages/edit_task.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:todo_app_new/models/task_model.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
 
 class TaskItemWidget extends StatefulWidget {
@@ -24,6 +24,7 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
     var theme = Theme.of(context);
     var provider = Provider.of<MyProvider>(context);
     final Color inactiveColor = provider.changeCardInactiveColor();
+    var appLocalization = AppLocalizations.of(context)!;
     return Slidable(
       startActionPane: ActionPane(
         motion: const DrawerMotion(),
@@ -35,9 +36,11 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
+                      backgroundColor: provider.changeCardColor(),
                       title: Text(
-                        'Dear ${provider.userModel!.fullName}',
+                        '${appLocalization.dear} ${provider.userModel!.fullName}',
                         textAlign: TextAlign.center,
+                        style: TextStyle(color: provider.changeCardInactiveColor()),
                       ),
                       content: Builder(builder: (context) {
                         return Container(
@@ -45,9 +48,9 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                           width: 250,
                           height: 50,
                           child: Text(
-                            'Are you sure to delete this task ?',
+                            appLocalization.deleteAlert,
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400),
+                                fontSize: 18, fontWeight: FontWeight.w400,color: provider.changeCardInactiveColor()),
                           ),
                         );
                       }),
@@ -58,8 +61,9 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                                 widget.taskModel.id ?? "");
                             Navigator.pop(context);
                           },
+                          style: ElevatedButton.styleFrom(backgroundColor: provider.changeCardColor(),),
                           child: Text(
-                            'Yes',
+                            appLocalization.yes,
                             style: TextStyle(
                               color: AppThemeManager.primaryColor,
                               fontSize: 16,
@@ -71,8 +75,9 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          style: ElevatedButton.styleFrom(backgroundColor: provider.changeCardColor(),),
                           child: Text(
-                            'Cancel',
+                            appLocalization.cancel,
                             style: TextStyle(
                               color: AppThemeManager.primaryColor,
                               fontSize: 16,
@@ -84,7 +89,7 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                     );
                   });
             },
-            label: "Delete",
+            label: appLocalization.delete,
             icon: Icons.delete,
             backgroundColor: Colors.red,
             borderRadius: BorderRadius.circular(15),
@@ -95,7 +100,7 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                   arguments: widget.taskModel);
             },
             icon: Icons.edit,
-            label: 'Edit',
+            label: appLocalization.edit,
             backgroundColor: AppThemeManager.primaryColor,
             borderRadius: BorderRadius.circular(15),
           ),
@@ -162,9 +167,12 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                   ),
                   Row(
                     children: [
-                      const Icon(
+                       Icon(
                         Icons.alarm,
                         size: 20,
+                         color: widget.taskModel.isDone!
+                             ? Colors.grey
+                             : provider.changeCardInactiveColor(),
                       ),
                       const SizedBox(
                         width: 5,
@@ -189,7 +197,7 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
               },
               child: widget.taskModel.isDone!
                   ? Text(
-                      'Done!',
+                      appLocalization.done,
                       style: theme.textTheme.titleLarge?.copyWith(
                         color: Colors.green,
                       ),

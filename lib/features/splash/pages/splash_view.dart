@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/features/settings_provider.dart';
 
 import '../../login/pages/login_screen.dart';

@@ -1,11 +1,9 @@
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app_new/features/edit_tasks/pages/edit_task.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/features/login/pages/login_screen.dart';
@@ -16,14 +14,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'core/config/app_theme_manager.dart';
 import 'firebase_options.dart';
 
-GlobalKey<NavigatorState> navigatorKey =GlobalKey<NavigatorState>();
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MyProvider myProvider = MyProvider();
-  await myProvider.setItems();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  MyProvider myProvider = MyProvider();
+  await myProvider.setItems();
   const fatalError = true;
   // Non-async exceptions
   FlutterError.onError = (errorDetails) {
@@ -56,7 +54,7 @@ void main() async{
   );
   runApp(
     ChangeNotifierProvider<MyProvider>(
-        create: (context) => MyProvider(), child: const MyApp()),
+        create: (context) => myProvider, child: const MyApp()),
   );
 }
 
@@ -68,7 +66,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
     return MaterialApp(
-      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -76,14 +73,15 @@ class MyApp extends StatelessWidget {
       locale: Locale(provider.languageCode),
       theme: AppThemeManager.lightTheme,
       darkTheme: AppThemeManager.darkTheme,
-      initialRoute: provider.firebaseUser!=null ? LayoutView.routeName:
-      SplashView.routeName,
+      initialRoute: provider.firebaseUser != null
+          ? LayoutView.routeName
+          : SplashView.routeName,
       routes: {
         SplashView.routeName: (context) => const SplashView(),
-        LoginScreen.routeName:(context) =>  LoginScreen(),
-        RegisterScreen.routeName:(context)=>  RegisterScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        RegisterScreen.routeName: (context) => RegisterScreen(),
         LayoutView.routeName: (context) => const LayoutView(),
-        EditTask.routeName: (context) =>  EditTask(),
+        EditTask.routeName: (context) => const EditTask(),
       },
     );
   }

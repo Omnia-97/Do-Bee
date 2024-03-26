@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app_new/features/settings_provider.dart';
 import '../../../core/config/app_theme_manager.dart';
 
 class CustomTextFormFieldRegister extends StatefulWidget {
@@ -34,6 +36,7 @@ class _CustomTextFormFieldRegisterState
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return TextFormField(
       onTap: widget.onTap,
       onChanged: widget.onChanged,
@@ -47,9 +50,10 @@ class _CustomTextFormFieldRegisterState
       obscureText: widget.isPassword ?? false ? obscureText : !obscureText,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
-        enabledBorder:
-            const UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        hintStyle: const TextStyle(
+            fontWeight: FontWeight.w400, fontSize: 15, color: Colors.grey),
+        enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey)),
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: AppThemeManager.primaryColor,
@@ -65,6 +69,9 @@ class _CustomTextFormFieldRegisterState
                 },
                 child: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
+                  color: provider.themeMode == ThemeMode.light
+                      ? Colors.grey
+                      : Colors.white,
                 ),
               )
             : widget.suffixIcon,

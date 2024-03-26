@@ -17,6 +17,7 @@ class LayoutView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+              backgroundColor: provider.changeCardColor(),
               context: context,
               isScrollControlled: true,
               builder: (context) {

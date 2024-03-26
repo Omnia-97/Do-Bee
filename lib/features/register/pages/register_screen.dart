@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app_new/features/layout_home/layout_view.dart';
+import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
@@ -30,26 +32,29 @@ class RegisterScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     var appLocalization = AppLocalizations.of(context)!;
+    var provider = Provider.of<MyProvider>(context);
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/images/background.png'),
           fit: BoxFit.cover,
         ),
-        color: Color(0xFFDFECDB),
+        color: provider.changeLoginContainer(),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           iconTheme: IconThemeData(
-            color: Colors.white,
+            color: provider.themeMode == ThemeMode.light
+                ? Colors.white
+                : AppThemeManager.darkPrimaryColor,
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
           toolbarHeight: 115,
           centerTitle: true,
           title: Text(
-            appLocalization.createAccount,
+            appLocalization.create,
             style: theme.textTheme.titleLarge,
           ),
         ),
@@ -71,7 +76,12 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   CustomTextFormFieldRegister(
                     hintText: appLocalization.nameHint,
-                    suffixIcon: Icon(Icons.person),
+                    suffixIcon: Icon(
+                      Icons.person,
+                      color: provider.themeMode == ThemeMode.light
+                          ? Colors.grey
+                          : Colors.white,
+                    ),
                     keyboardType: TextInputType.text,
                     controller: fullNameController,
                     onValidate: (value) {
@@ -81,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text(
@@ -91,7 +101,12 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   CustomTextFormFieldRegister(
                     hintText: appLocalization.emailHint,
-                    suffixIcon: Icon(Icons.email_rounded),
+                    suffixIcon: Icon(
+                      Icons.email_rounded,
+                      color: provider.themeMode == ThemeMode.light
+                          ? Colors.grey
+                          : Colors.white,
+                    ),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     onValidate: (value) {
@@ -105,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text(
@@ -128,7 +143,7 @@ class RegisterScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text(
@@ -150,7 +165,7 @@ class RegisterScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   ElevatedButton(
@@ -161,6 +176,7 @@ class RegisterScreen extends StatelessWidget {
                           password: passwordController.text,
                           fullName: fullNameController.text,
                           onSuccess: () {
+                            provider.initUser();
                             Navigator.pushNamedAndRemoveUntil(context,
                                 LayoutView.routeName, (route) => false);
                           },
@@ -203,14 +219,14 @@ class RegisterScreen extends StatelessWidget {
                           style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.white),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_rounded,
                           color: Colors.white,
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],
