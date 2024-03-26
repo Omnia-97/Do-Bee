@@ -8,6 +8,7 @@ class AppThemeManager {
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
   static ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primaryColor,
       shape: RoundedRectangleBorder(
@@ -68,6 +69,7 @@ class AppThemeManager {
     ),
   );
   static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
     iconTheme: const IconThemeData(
       color: whiteColor,
     ),
@@ -110,6 +112,7 @@ class AppThemeManager {
       bodyLarge: GoogleFonts.poppins(
         fontSize: 18,
         fontWeight: FontWeight.w700,
+        color: Colors.white,
       ),
       displayLarge: GoogleFonts.inter(
         fontSize: 18,
@@ -118,11 +121,15 @@ class AppThemeManager {
       bodyMedium: GoogleFonts.roboto(
         fontSize: 15,
         fontWeight: FontWeight.w700,
+        color: Colors.white,
       ),
       bodySmall: GoogleFonts.roboto(
         fontSize: 12,
         fontWeight: FontWeight.w400,
+        color: Colors.white,
       ),
+      displayMedium: GoogleFonts.roboto(
+          fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
     ),
   );
 }

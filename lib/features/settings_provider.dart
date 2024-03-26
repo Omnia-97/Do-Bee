@@ -15,107 +15,163 @@ class MyProvider extends ChangeNotifier {
   User? firebaseUser;
   UserModel? userModel;
 
-  MyProvider(){
-   firebaseUser = FirebaseAuth.instance.currentUser;
-    if(firebaseUser != null){
-      initUser();
+  MyProvider() {
+    initializeUser();
+  }
+  Future<void> initializeUser() async {
+    firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      await initUser();
     }
   }
-  initUser()async{
+
+  Future<void> initUser() async {
     userModel = await FirebaseFunctions.readUser();
     notifyListeners();
   }
-  Future<void> setItems()async{
+
+  Future<void> setItems() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    if(getTheme() ?? false){
-      themeMode = ThemeMode.dark;
-    }else{
-      themeMode= ThemeMode.light;
+    if (sharedPreferences != null) {
+      if (getTheme() ?? false) {
+        themeMode = ThemeMode.dark;
+      } else {
+        themeMode = ThemeMode.light;
+      }
+      if (getLang() ?? false) {
+        languageCode = 'ar';
+      } else {
+        languageCode = 'en';
+      }
     }
-    if(getLang() ?? false){
-      languageCode = 'ar';
-    }else{
-      languageCode = 'en';
+  }
+
+  Future<void> saveTheme(bool isDark) async {
+    if (sharedPreferences != null) {
+      await sharedPreferences!.setBool('isDark', isDark);
     }
+  }
 
+  Future<void> saveLang(bool isArabic) async {
+    if (sharedPreferences != null) {
+      await sharedPreferences!.setBool('isArabic', isArabic);
+    }
   }
-  Future<void> saveTheme(bool isDark)async{
-    await sharedPreferences!.setBool('isDark', isDark);
 
+  bool? getTheme() {
+    if (sharedPreferences != null) {
+      return sharedPreferences!.getBool('isDark');
+    }
+    return null;
   }
-  Future<void> saveLang(bool isArabic)async{
-    await sharedPreferences!.setBool('isArabic', isArabic);
+
+  bool? getLang() {
+    if (sharedPreferences != null) {
+      return sharedPreferences!.getBool('isArabic');
+    }
+    return null;
   }
-  bool? getTheme(){
-    return sharedPreferences!.getBool('isDark');
-  }
-  bool? getLang(){
-    return sharedPreferences!.getBool('isArabic');
-  }
+
   void changeThemeMode(ThemeMode mode) {
-    if(themeMode == mode){
+    if (mode == themeMode) {
       return;
     }
     themeMode = mode;
+    if (themeMode == ThemeMode.dark) {
+      saveTheme(true);
+    } else {
+      saveTheme(false);
+    }
     notifyListeners();
   }
-  void changeLanguage(String langCode) {
 
+  void changeLanguage(String langCode) {
+    if (langCode == languageCode) {
+      return;
+    }
     languageCode = langCode;
+    if (languageCode == 'ar') {
+      saveLang(true);
+    } else {
+      saveLang(false);
+    }
     notifyListeners();
   }
-  int currentIndex =0;
+
+  int currentIndex = 0;
   List<Widget> tabs = [
     const TasksView(),
-      SettingsView(),
+    const SettingsView(),
   ];
 
-
-
-    changeSplashScreen() {
+  changeSplashScreen() {
     if (themeMode == ThemeMode.light) {
       return "assets/images/splash_bg.png";
-    } else if(themeMode == ThemeMode.dark) {
+    } else if (themeMode == ThemeMode.dark) {
       return "assets/images/dark_theme/splash_dark_bg.png";
     }
-
   }
-   void changeCurrentIndex (int index){
-    currentIndex =index ;
+
+  void changeCurrentIndex(int index) {
+    currentIndex = index;
     notifyListeners();
-   }
-    Color changeCardColor(){
-    if(themeMode == ThemeMode.light){
+  }
+
+  Color changeCardColor() {
+    if (themeMode == ThemeMode.light) {
       return AppThemeManager.whiteColor;
-    }
-    else{
+    } else {
       return AppThemeManager.darkSecondColor;
     }
-   }
+  }
 
-  Color changeCardTextColor(){
-    if(themeMode == ThemeMode.light){
+  Color changeCardTextColor() {
+    if (themeMode == ThemeMode.light) {
       return AppThemeManager.primaryColor;
-    }
-    else{
+    } else {
       return AppThemeManager.whiteColor;
     }
   }
-   Color changeCardInactiveColor(){
-    if(themeMode == ThemeMode.light){
+
+  Color changeCardInactiveColor() {
+    if (themeMode == ThemeMode.light) {
       return AppThemeManager.blackColor;
-    }
-    else{
+    } else {
       return AppThemeManager.whiteColor;
     }
   }
-    changeScaffoldColor(){
-    if(themeMode == ThemeMode.light){
+
+  changeScaffoldColor() {
+    if (themeMode == ThemeMode.light) {
       return Colors.transparent;
-    }
-    else if(themeMode == ThemeMode.dark) {
+    } else if (themeMode == ThemeMode.dark) {
       return AppThemeManager.darkPrimaryColor;
     }
   }
 
+  Color changeLogoutColor() {
+    if (themeMode == ThemeMode.light) {
+      return AppThemeManager.whiteColor;
+    } else {
+      return AppThemeManager.darkPrimaryColor;
+    }
+  }
+
+  Color changeEditText() {
+    if (themeMode == ThemeMode.light) {
+      return const Color(
+        0xFF383838,
+      );
+    } else {
+      return AppThemeManager.whiteColor;
+    }
+  }
+
+  Color changeLoginContainer() {
+    if (themeMode == ThemeMode.light) {
+      return const Color(0xFFDFECDB);
+    } else {
+      return AppThemeManager.darkPrimaryColor;
+    }
+  }
 }

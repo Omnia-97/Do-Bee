@@ -25,17 +25,16 @@ class LoginScreen extends StatelessWidget {
     var theme = Theme.of(context);
     var appLocalizations = AppLocalizations.of(context)!;
     var provider = Provider.of<MyProvider>(context);
-    bool isTextDirectionRTL = Directionality.of(context) == TextDirection.rtl;
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/images/background.png'),
           fit: BoxFit.cover,
         ),
-        color: Color(0xFFDFECDB),
+        color: provider.changeLoginContainer(),
       ),
       child: Scaffold(
-        backgroundColor: provider.changeScaffoldColor(),
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -65,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -75,7 +74,12 @@ class LoginScreen extends StatelessWidget {
                   ),
                   CustomTextFormFieldRegister(
                     hintText: appLocalizations.emailHint,
-                    suffixIcon: Icon(Icons.email_rounded),
+                    suffixIcon: Icon(
+                      Icons.email_rounded,
+                      color: provider.themeMode == ThemeMode.light
+                          ? Colors.grey
+                          : Colors.white,
+                    ),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     onValidate: (value) {
@@ -85,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -104,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -115,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) {
-                              return ForgotPasswordPage();
+                              return const ForgotPasswordPage();
                             }),
                           );
                         },
@@ -125,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
@@ -166,7 +170,7 @@ class LoginScreen extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppThemeManager.primaryColor,
-                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           )),
@@ -180,7 +184,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(
@@ -188,17 +192,17 @@ class LoginScreen extends StatelessWidget {
                     child: TextDivider.horizontal(
                         text: Text(
                           appLocalizations.or,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 13,
                           ),
                         ),
                         thickness: 1,
-                        color: Color(0xff565656),
+                        color: const Color(0xff565656),
                         indent: 8,
                         endIndent: 8),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   GestureDetector(
@@ -211,13 +215,13 @@ class LoginScreen extends StatelessWidget {
                         icon: Brand(Brands.google),
                         iconText: appLocalizations.gogLogin),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GestureDetector(
                     onTap: () async {},
                     child: CustomIconText(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.facebook,
                           color: Color(0xff1778F2),
                           size: 30,
@@ -238,7 +242,9 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
-                              color: Color(0xff474747)),
+                              color: provider.themeMode == ThemeMode.light
+                                  ? const Color(0xff474747)
+                                  : Colors.white),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -250,7 +256,9 @@ class LoginScreen extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
-                              color: Color(0xff474747),
+                              color: provider.themeMode == ThemeMode.light
+                                  ? const Color(0xff474747)
+                                  : Colors.white,
                               decoration: TextDecoration.underline,
                             ),
                           ),

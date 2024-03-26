@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:todo_app_new/features/layout_home/layout_view.dart';
 import 'package:todo_app_new/models/task_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app_new/models/user_model.dart';
@@ -47,16 +46,19 @@ class FirebaseFunctions {
   }
 
   static Stream<QuerySnapshot<TaskModel>> getTask(DateTime dateTime) {
-    return getTaskCollection().where("userId" , isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+    return getTaskCollection()
+        .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .where("date",
-            isEqualTo: DateUtils.dateOnly(dateTime).millisecondsSinceEpoch).orderBy('id')
+            isEqualTo: DateUtils.dateOnly(dateTime).millisecondsSinceEpoch)
+        .orderBy('id')
         .snapshots();
   }
 
   static Future<void> deleteTask(String id) {
     return getTaskCollection().doc(id).delete();
   }
-  static Future<void> updateTask( TaskModel taskModel) {
+
+  static Future<void> updateTask(TaskModel taskModel) {
     var taskCollection = getTaskCollection();
     return taskCollection.doc(taskModel.id).update(taskModel.toJson());
   }
@@ -116,20 +118,29 @@ class FirebaseFunctions {
       onError('Wrong password or email');
     }
   }
-static Future<UserModel?> readUser()async{
-    String id = FirebaseAuth.instance.currentUser!.uid;
-    DocumentSnapshot<UserModel> documentSnapshot = await getUsersCollection().doc(id).get();
-    return documentSnapshot.data();
-}
+
+  static Future<UserModel?> readUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String id = user.uid;
+      DocumentSnapshot<UserModel> documentSnapshot =
+          await getUsersCollection().doc(id).get();
+      return documentSnapshot.data();
+    } else {
+      return null;
+    }
+  }
+
   static Future signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if(googleUser ==null){
+    if (googleUser == null) {
       return;
     }
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -138,11 +149,10 @@ static Future<UserModel?> readUser()async{
     );
 
     // Once signed in, return the UserCredential
-     await FirebaseAuth.instance.signInWithCredential(credential);
-
+    await FirebaseAuth.instance.signInWithCredential(credential);
   }
+
   static void signOut() async {
     await FirebaseAuth.instance.signOut();
   }
-
 }

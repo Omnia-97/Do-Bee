@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app_new/core/config/app_theme_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app_new/features/settings_provider.dart';
 import '../widgets/custom_textformfield.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -71,10 +73,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     var appLocalizations = AppLocalizations.of(context)!;
     var theme = Theme.of(context);
+    var provider = Provider.of<MyProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
+        iconTheme:  IconThemeData(
+          color: provider.themeMode==ThemeMode.light?Colors.white:AppThemeManager.darkPrimaryColor,
         ),
         backgroundColor: AppThemeManager.primaryColor,
         title: Text(appLocalizations.forgetPassword,

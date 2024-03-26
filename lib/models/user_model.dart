@@ -7,22 +7,23 @@ class UserModel {
 
   UserModel({
     required this.id,
-    this.emailVerified=false,
+    this.emailVerified = false,
     required this.email,
     this.fullName = '',
   });
-  UserModel.fromJson(Map<String , dynamic>json): this(
-    id: json['id'],
-    email: json['email'],
-    fullName: json['fullName'],
-    emailVerified: json['emailVerified'],
-  );
-  Map<String, dynamic> toJson(){
+  UserModel.fromJson(Map<String, dynamic> json)
+      : this(
+          id: json['id'],
+          email: json['email'],
+          fullName: json['fullName'],
+          emailVerified: json['emailVerified'],
+        );
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'email':email,
-      'fullName':fullName,
-      'emailVerified' : emailVerified,
+      'email': email,
+      'fullName': fullName,
+      'emailVerified': emailVerified,
     };
   }
 }

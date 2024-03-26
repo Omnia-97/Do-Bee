@@ -13,7 +13,7 @@ class TaskModel {
     required this.title,
     required this.description,
     required this.date,
-    this.isDone = true,
+    this.isDone = false,
   });
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(
@@ -30,7 +30,7 @@ class TaskModel {
       'title': title,
       'userId': userId,
       'description': description,
-      'date': date.millisecondsSinceEpoch ,
+      'date': date.millisecondsSinceEpoch,
       "id": id,
       "isDone": isDone,
     };

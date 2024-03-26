@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app_new/core/config/app_theme_manager.dart';
+import 'package:todo_app_new/features/settings_provider.dart';
 
 class CustomIconText extends StatelessWidget {
-  CustomIconText({required this.icon, required this.iconText});
+  CustomIconText({super.key, required this.icon, required this.iconText});
   Widget icon;
   String iconText;
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
+    var provider = Provider.of<MyProvider>(context);
     return Row(
       children: [
         Padding(
@@ -17,10 +19,14 @@ class CustomIconText extends StatelessWidget {
             width: 309,
             height: 45,
             decoration: BoxDecoration(
-              color: const Color(0xFFDFECDB),
+              color: provider.themeMode == ThemeMode.light
+                  ? const Color(0xFFDFECDB)
+                  : AppThemeManager.darkSecondColor,
               boxShadow: [
                 BoxShadow(
-                  color: AppThemeManager.primaryColor.withOpacity(.5),
+                  color: provider.themeMode == ThemeMode.light
+                      ? AppThemeManager.primaryColor.withOpacity(.5)
+                      : AppThemeManager.darkPrimaryColor.withOpacity(.1),
                   blurRadius: 13,
                   offset: const Offset(0, 1),
                 )

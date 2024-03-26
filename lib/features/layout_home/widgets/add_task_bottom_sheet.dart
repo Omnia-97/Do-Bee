@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app_new/features/layout_home/widgets/custom_TextFormField.dart';
+import 'package:todo_app_new/features/settings_provider.dart';
 import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:todo_app_new/models/task_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,6 +26,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     var theme = Theme.of(context);
     var appLocalizations = AppLocalizations.of(context)!;
     bool isTextDirectionRTL = Directionality.of(context) == TextDirection.rtl;
+    var provider = Provider.of<MyProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -100,8 +103,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               },
               child: Text(
                 chosenTime.toString().substring(0, 10),
-                style: theme.textTheme.displayLarge
-                    ?.copyWith(fontSize: 28, fontWeight: FontWeight.w100),
+                style: theme.textTheme.displayLarge?.copyWith(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w100,
+                  color: provider.changeCardInactiveColor(),
+                ),
               ),
             ),
             const SizedBox(
@@ -144,17 +150,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   }
 
   changeDate(BuildContext context) async {
+    var provider = Provider.of<MyProvider>(context, listen: false);
     DateTime? selectedDate = await showDatePicker(
-      builder: (context, child) {
-        return Theme(
-            data: Theme.of(context).copyWith(
-                colorScheme: const ColorScheme.light(
-              primary: AppThemeManager.primaryColor,
-              background: Color(0xFFDFECDB),
-            )),
-            child: child!);
-      },
       context: context,
+      locale: Locale(provider.languageCode),
       initialDate: chosenTime,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(

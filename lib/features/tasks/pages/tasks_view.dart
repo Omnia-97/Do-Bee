@@ -10,6 +10,7 @@ import '../../../models/task_model.dart';
 import '../../login/pages/login_screen.dart';
 import '../../settings_provider.dart';
 import '../widgets/task_item_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TasksView extends StatefulWidget {
   const TasksView({super.key});
@@ -24,6 +25,8 @@ class _TasksViewState extends State<TasksView> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var provider = Provider.of<MyProvider>(context);
+    var appLocalization = AppLocalizations.of(context)!;
+    bool isTextDirectionRTL = Directionality.of(context) == TextDirection.rtl;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -33,15 +36,15 @@ class _TasksViewState extends State<TasksView> {
             alignment: const Alignment(0, 2.0),
             clipBehavior: Clip.none,
             children: [
-              Stack(
-                alignment: Alignment.centerRight,
+              isTextDirectionRTL?Stack(
+                alignment: Alignment.centerLeft,
                 children: [
-                  ContainerAppBarWidget(text: "To Do List"),
+                  ContainerAppBarWidget(text: appLocalization.todoList),
                   Padding(
-                    padding: const EdgeInsets.only(right: 42),
+                    padding: const EdgeInsets.only(left: 42),
                     child: Text(
-                      'Log Out',
-                      style: TextStyle(color: Colors.white),
+                      appLocalization.logout,
+                      style: TextStyle(color: provider.changeLogoutColor()),
                     ),
                   ),
                   InkWell(
@@ -56,7 +59,36 @@ class _TasksViewState extends State<TasksView> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Icon(
                         Icons.logout,
-                        color: Colors.white,
+                        color: provider.changeLogoutColor(),
+                      ),
+                    ),
+                  ),
+                ],
+              ):
+              Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  ContainerAppBarWidget(text: appLocalization.todoList),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 42),
+                    child: Text(
+                      appLocalization.logout,
+                      style: TextStyle(color: provider.changeLogoutColor()),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      GoogleSignIn googleSignIn = GoogleSignIn();
+                      googleSignIn.disconnect();
+                      FirebaseFunctions.signOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginScreen.routeName, (route) => false);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Icon(
+                        Icons.logout,
+                        color:provider.changeLogoutColor(),
                       ),
                     ),
                   ),
@@ -148,10 +180,10 @@ class _TasksViewState extends State<TasksView> {
               if (snapshot.hasError) {
                 return Column(
                   children: [
-                    const Text('SomeThing went wrong'),
+                     Text(appLocalization.isError),
                     ElevatedButton(
                       onPressed: () {},
-                      child: const Text('Please try again'),
+                      child:  Text(appLocalization.tryAgain),
                     ),
                   ],
                 );
@@ -159,8 +191,8 @@ class _TasksViewState extends State<TasksView> {
               var tasks =
                   snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
               if (tasks.isEmpty) {
-                return const Center(
-                  child: Text('No Tasks Added'),
+                return  Center(
+                  child: Text(appLocalization.noTasks, style: TextStyle(color: provider.changeCardTextColor()),),
                 );
               }
               return ListView.builder(
