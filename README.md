@@ -22,6 +22,8 @@ To get started with the To-Do app, follow these steps:
 4. Run `flutter pub get` to install dependencies.
 5. Run the app on an emulator or physical device using `flutter run`.
 
+![Screenshot 1](screen_shots/lightlogin.png)
+
 ## Contributing 🤝
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements or bug fixes.
