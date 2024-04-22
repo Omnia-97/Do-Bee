@@ -22,14 +22,6 @@ To get started with the To-Do app, follow these steps:
 4. Run `flutter pub get` to install dependencies.
 5. Run the app on an emulator or physical device using `flutter run`.
 
-## Screenshots 📸
-
-![Screenshot 1](screen_shots/splash.png)
-![Screenshot 2](screen_shots/lightlogin.png)
-![Screenshot 3](screen_shots/handlingemailerror.png)
-![Screenshot 4](screen_shots/taskscreen.png)
-![Screenshot 5](screen_shots/addingtasks.png)
-
 ## Contributing 🤝
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements or bug fixes.
