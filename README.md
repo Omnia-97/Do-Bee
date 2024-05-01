@@ -26,6 +26,25 @@ To get started with the To-Do app, follow these steps:
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements or bug fixes.
 
+## ScreenShots 📸 
+<div style="display: flex; justify-content: space-between;">
+    <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/splash.png" height="400">
+    <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/lightlogin.png" height="400">
+    <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/handlingemailerror.png" height="400">
+</div>
+
+<div style="display: flex; justify-content: space-between; margin-top: 25px;">
+        <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/taskscreen.png" height="400">
+        <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/addingtasks.png" height="400">
+       <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/removeoredit.png" height="400">
+</div>
+
+<div style="display: flex; justify-content: space-between; margin-top: 25px;">
+        <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/taskdone.png" height="400">
+        <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/lightsetting.png" height="400">
+       <img src="https://github.com/Omnia-97/ToDo_App/blob/master/screen_shots/darksetting.png" height="400">
+</div>
+
 ## Credits 🙌
 
 This project was created with love by [Omnia-97].
