@@ -26,7 +26,8 @@ To get started with the Do-Bee app, follow these steps:
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements or bug fixes.
 
-
+## Explain Updated Neme 💗
+The name DoBee combines "Do" (suggesting action and productivity) with "Bee" (symbolizing industriousness and efficiency, like a busy bee). It evokes an image of a hardworking, efficient tool that helps users get things done quickly and effectively.(UI UX Designer Idea 💡).
 
 ## Credits 🙌
 
