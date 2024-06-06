@@ -1,7 +1,8 @@
+import 'package:DooBee/core/config/app_theme_manager.dart';
+import 'package:DooBee/features/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/core/config/app_theme_manager.dart';
-import 'package:todo_app_new/features/settings_provider.dart';
+
 
 class CustomIconText extends StatelessWidget {
   CustomIconText({super.key, required this.icon, required this.iconText});

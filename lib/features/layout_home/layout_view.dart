@@ -1,7 +1,8 @@
+import 'package:DooBee/features/layout_home/widgets/add_task_bottom_sheet.dart';
+import 'package:DooBee/features/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/features/layout_home/widgets/add_task_bottom_sheet.dart';
-import 'package:todo_app_new/features/settings_provider.dart';
+
 
 class LayoutView extends StatelessWidget {
   static const String routeName = 'Layout Screen';

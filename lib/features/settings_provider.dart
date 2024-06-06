@@ -1,12 +1,11 @@
+import 'package:DooBee/features/settings/pages/settings_view.dart';
+import 'package:DooBee/firebase/firebase_functions.dart';
+import 'package:DooBee/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_app_new/features/settings/pages/settings_view.dart';
-import 'package:todo_app_new/features/tasks/pages/tasks_view.dart';
-import 'package:todo_app_new/firebase/firebase_functions.dart';
-import 'package:todo_app_new/models/user_model.dart';
-
 import '../core/config/app_theme_manager.dart';
+import 'tasks/pages/tasks_view.dart';
 
 class MyProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.light;

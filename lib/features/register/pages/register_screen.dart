@@ -1,8 +1,8 @@
+import 'package:DooBee/features/layout_home/layout_view.dart';
+import 'package:DooBee/features/settings_provider.dart';
+import 'package:DooBee/firebase/firebase_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_new/features/layout_home/layout_view.dart';
-import 'package:todo_app_new/features/settings_provider.dart';
-import 'package:todo_app_new/firebase/firebase_functions.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/config/app_theme_manager.dart';
 import '../../login/widgets/custom_textformfield.dart';
