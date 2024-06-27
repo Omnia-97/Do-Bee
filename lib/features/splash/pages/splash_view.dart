@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:DooBee/features/onboarding/onboarding_screen.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(
         context,
-        LoginScreen.routeName,
+        OnboardingScreen.routeName,
       );
     });
     super.initState();
