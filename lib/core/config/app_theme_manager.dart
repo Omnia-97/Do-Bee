@@ -19,7 +19,7 @@ class AppThemeManager {
         ),
       ),
     ),
-    scaffoldBackgroundColor: const Color(0xFFDFECDB),
+    scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 0,
       type: BottomNavigationBarType.fixed,
