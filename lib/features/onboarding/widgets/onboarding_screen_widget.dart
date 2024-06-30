@@ -21,13 +21,11 @@ class OnboardingScreenWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 15.5.w, right: 19.5.w),
-              child: Image.asset(imagePath),
-            ),
+          Padding(
+            padding: EdgeInsets.only(left: 15.5.w, right: 19.5.w),
+            child: Image.asset(imagePath),
           ),
-          SizedBox(height: 35.22.h),
+          SizedBox(height: 25.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(

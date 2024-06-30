@@ -1,4 +1,6 @@
+import 'package:DooBee/features/login/pages/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'widgets/onboarding_screen_widget.dart';
@@ -14,6 +16,23 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
+  int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {
+        currentPage = _controller.page!.round();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +48,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   imagePath: 'assets/images/onboarding_1.png',
                   title: 'Achieve Your Goals',
                   description:
-                      'Easily define your objectives and work towards them with DoBee.',
+                  'Easily define your objectives and work towards them with DoBee.',
                 ),
                 OnboardingScreenWidget(
                   imagePath: 'assets/images/onboarding_2.png',
                   title: 'Track Your Progress',
                   description:
-                      'Monitor your progress and stay motivated by visualizing completed tasks.',
+                  'Monitor your progress and stay motivated by visualizing completed tasks.',
                 ),
                 OnboardingScreenWidget(
                   imagePath: 'assets/images/onboarding_3.png',
                   title: 'Get Notified Instantly',
                   description:
-                      'DoBee ensures you get alerted about upcoming tasks and deadlines right when you need them.',
+                  'DoBee ensures you get alerted about upcoming tasks and deadlines right when you need them.',
                 ),
               ],
             ),
@@ -54,14 +73,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SmoothPageIndicator(
                   controller: _controller,
                   count: 3,
-                  effect: const ExpandingDotsEffect(
-                    dotHeight: 8.0,
-                    dotWidth: 8.0,
+                  effect: ExpandingDotsEffect(
+                    dotHeight: 8.h,
+                    dotWidth: 12.w,
+                    activeDotColor: Colors.white,
                     dotColor: Colors.white54,
-                    activeDotColor: Colors.transparent,
+                    expansionFactor: 2,
+                    spacing: 8.0,
                   ),
                 ),
-                Positioned.fill(
+             /*   Positioned.fill(
                   child: AnimatedBuilder(
                     animation: _controller,
                     builder: (context, child) {
@@ -81,7 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       );
                     },
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -89,7 +110,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: const EdgeInsets.only(bottom: 32.0),
             child: ElevatedButton(
               onPressed: () {
-                // Navigate to the next screen or move to the next page
                 int nextPage = _controller.page!.toInt() + 1;
                 if (nextPage < 3) {
                   _controller.animateToPage(
@@ -98,21 +118,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     curve: Curves.easeIn,
                   );
                 } else {
-                  // Navigate to the next screen in your app
+                  Navigator.pushReplacementNamed(
+                    context,
+                    LoginScreen.routeName,
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
                 child: Text(
-                  'Next',
-                  style: TextStyle(fontSize: 18, color:Color(0xFF9E7BE8),),
-
+                  currentPage == 2 ? 'Get Started' : 'Next',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF9E7BE8),
+                  ),
                 ),
               ),
             ),
