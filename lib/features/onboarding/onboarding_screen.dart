@@ -1,4 +1,5 @@
 import 'package:DooBee/features/login/pages/login_screen.dart';
+import 'package:DooBee/features/login/pages/new_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -120,7 +121,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 } else {
                   Navigator.pushReplacementNamed(
                     context,
-                    LoginScreen.routeName,
+                    NewLogin.routeName,
                   );
                 }
               },

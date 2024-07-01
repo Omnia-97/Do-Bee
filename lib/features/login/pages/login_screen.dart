@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
           image: AssetImage('assets/images/background.png'),
           fit: BoxFit.cover,
         ),
-        color: provider.changeLoginContainer(),
+        color: provider.changeLoginScaffoldColor(),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                     height: mediaQuery.height * 0.17,
                   ),
                   Text(
-                    appLocalizations.welcome,
+                    'appLocalizations.welcome',
                     textAlign: TextAlign.start,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,

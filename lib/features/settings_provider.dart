@@ -166,11 +166,11 @@ class MyProvider extends ChangeNotifier {
     }
   }
 
-  Color changeLoginContainer() {
+  Color changeLoginScaffoldColor() {
     if (themeMode == ThemeMode.light) {
-      return const Color(0xFFDFECDB);
+      return AppThemeManager.whiteColor;
     } else {
-      return AppThemeManager.darkPrimaryColor;
+      return AppThemeManager.blackColor;
     }
   }
 }

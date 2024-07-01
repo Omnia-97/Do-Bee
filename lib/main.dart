@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:DooBee/features/edit_tasks/pages/edit_task.dart';
 import 'package:DooBee/features/layout_home/layout_view.dart';
 import 'package:DooBee/features/login/pages/login_screen.dart';
+import 'package:DooBee/features/login/pages/new_login.dart';
 import 'package:DooBee/features/onboarding/onboarding_screen.dart';
 import 'package:DooBee/features/register/pages/register_screen.dart';
 import 'package:DooBee/features/settings_provider.dart';
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
           RegisterScreen.routeName: (context) => RegisterScreen(),
           LayoutView.routeName: (context) => const LayoutView(),
           EditTask.routeName: (context) => const EditTask(),
+          NewLogin.routeName: (context) => const NewLogin(),
         },
       ),
     );

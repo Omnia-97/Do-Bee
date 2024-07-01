@@ -1,5 +1,7 @@
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 import 'package:provider/provider.dart';
 import '../../../core/config/app_theme_manager.dart';
 
@@ -15,10 +17,11 @@ class CustomTextFormFieldRegister extends StatefulWidget {
       this.onValidate,
       this.onFieldSubmitted,
       this.onEditingComplete,
-      this.onSaved,
+      this.onSaved, this.contentPadding,
       super.key});
   String hintText;
   Widget? suffixIcon;
+  final EdgeInsetsGeometry? contentPadding;
   final bool? isPassword;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
@@ -36,6 +39,7 @@ class _CustomTextFormFieldRegisterState
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     var provider = Provider.of<MyProvider>(context);
     return TextFormField(
       onTap: widget.onTap,
@@ -49,15 +53,41 @@ class _CustomTextFormFieldRegisterState
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword ?? false ? obscureText : !obscureText,
       decoration: InputDecoration(
+        contentPadding: widget.contentPadding ,
+        border: GradientOutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          width: 1.w,
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFFD9B8FF),
+              Color(0xFFAB62FF),
+            ],
+          ),
+        ),
         hintText: widget.hintText,
-        hintStyle: const TextStyle(
-            fontWeight: FontWeight.w400, fontSize: 15, color: Colors.grey),
-        enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey)),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppThemeManager.primaryColor,
-            width: 2.5,
+        hintStyle: theme.textTheme.bodyLarge!.copyWith(
+          fontSize: 15.sp,
+          fontWeight: FontWeight.w300,
+          color: const Color(0xFF898989),
+        ),
+        enabledBorder: GradientOutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          width: 1.w,
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFFD9B8FF),
+              Color(0xFFAB62FF),
+            ],
+          ),
+        ),
+        focusedBorder:  GradientOutlineInputBorder(
+          width: 1.w,
+          borderRadius: BorderRadius.circular(10.r),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFFD9B8FF),
+              Color(0xFFAB62FF),
+            ],
           ),
         ),
         suffixIcon: widget.isPassword ?? false
@@ -68,7 +98,7 @@ class _CustomTextFormFieldRegisterState
                   });
                 },
                 child: Icon(
-                  obscureText ? Icons.visibility : Icons.visibility_off,
+                  obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                   color: provider.themeMode == ThemeMode.light
                       ? Colors.grey
                       : Colors.white,
