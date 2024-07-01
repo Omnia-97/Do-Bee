@@ -32,16 +32,15 @@
   "dearUser": "Dear user",
   "selectLanguage": "Select Language",
   "selectTheme": "Select Theme",
-  "login": "Login",
-  "welcome":"Welcome back!",
-  "email": "E-mail",
-  "emailHint": "Enter your e-mail address",
+  "login": "Sign in",
+  "email": "Email",
+  "emailHint": "OmniaNabil@gmail.com",
   "password": "Password",
-  "passwordHint": "Enter your password",
+  "passwordHint": "********",
   "validateEmail":"Email required",
   "validatePassword":"Password required",
   "forgetPassword": "Forgot password ?",
-  "or": "  OR",
+  "or": "Or Sign In With",
   "gogLogin": "Login with Google",
   "faceLogin": "Login with Facebook",
   "createAccount": "Don’t have an account? ",
@@ -62,6 +61,8 @@
   "wrongLogin": "email or password is wrong",
   "resetPassword": "Password reset link sent! check your Email",
   "reset": "Reset Password!",
-  "resetTitle": "Enter Your Email and we will send you a password reset link"
+  "resetTitle": "Enter Your Email and we will send you a password reset link",
+  "welcomeBack": "Hi! Welcome back, you’ve been missed"
+
 
 }

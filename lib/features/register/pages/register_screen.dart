@@ -39,7 +39,7 @@ class RegisterScreen extends StatelessWidget {
           image: AssetImage('assets/images/background.png'),
           fit: BoxFit.cover,
         ),
-        color: provider.changeLoginContainer(),
+        color: provider.changeLoginScaffoldColor(),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
