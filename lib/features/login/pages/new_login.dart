@@ -1,6 +1,8 @@
 import 'package:DooBee/features/login/pages/forgot_pw_page.dart';
 import 'package:DooBee/features/login/widgets/custom_button.dart';
 import 'package:DooBee/features/login/widgets/custom_textformfield.dart';
+import 'package:DooBee/features/login/widgets/social_container.dart';
+import 'package:DooBee/features/register/pages/register_screen.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +74,8 @@ class NewLogin extends StatelessWidget {
                 ),
                 CustomTextFormFieldRegister(
                   hintText: appLocalizations.emailHint,
-                  contentPadding: EdgeInsets.symmetric(vertical:14.h, horizontal: 20.w),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
                   //controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   onValidate: (value) {
@@ -82,7 +85,9 @@ class NewLogin extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(
+                  height: 20.h,
+                ),
                 Text(
                   appLocalizations.password,
                   style: theme.textTheme.bodyLarge!.copyWith(
@@ -96,7 +101,8 @@ class NewLogin extends StatelessWidget {
                 ),
                 CustomTextFormFieldRegister(
                   hintText: appLocalizations.passwordHint,
-                  contentPadding: EdgeInsets.symmetric(vertical:14.h, horizontal: 20.w),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
                   isPassword: true,
                   //controller: passwordController,
                   onValidate: (value) {
@@ -106,7 +112,9 @@ class NewLogin extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 18.h,),
+                SizedBox(
+                  height: 18.h,
+                ),
                 InkWell(
                   onTap: () {
                     Navigator.push(
@@ -118,7 +126,7 @@ class NewLogin extends StatelessWidget {
                   },
                   child: Align(
                     alignment: AlignmentDirectional.centerEnd,
-                    child:  GradientText(
+                    child: GradientText(
                       appLocalizations.forgetPassword,
                       style: theme.textTheme.bodyLarge!.copyWith(
                         fontSize: 15.sp,
@@ -131,25 +139,84 @@ class NewLogin extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 33.h,),
-                CustomButton(onPressed: (){}, buttonText: appLocalizations.login),
-                SizedBox(height: 29.h,),
+                SizedBox(
+                  height: 33.h,
+                ),
+                CustomButton(
+                    onPressed: () {}, buttonText: appLocalizations.login),
+                SizedBox(
+                  height: 29.h,
+                ),
                 TextDivider.horizontal(
-                    text: Text(
-                      appLocalizations.or,
-                      style: theme.textTheme.bodyLarge!.copyWith(
+                  text: Text(
+                    appLocalizations.or,
+                    style: theme.textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 15.sp,
+                      color: const Color(0xFF898989),
+                    ),
+                  ),
+                  thickness: 1,
+                  color: const Color(0xFF898989),
+                  indent: 8,
+                  endIndent: 8,
+                ),
+                SizedBox(
+                  height: 33.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 32.w,
+                  ),
+                  child: Row(
+                    children: [
+                      const SocialContainer(
+                          imagePath: 'assets/images/ic_apple.svg'),
+                      SizedBox(
+                        width: 53.w,
+                      ),
+                      const SocialContainer(
+                          imagePath: 'assets/images/ic_google.svg'),
+                      SizedBox(
+                        width: 53.w,
+                      ),
+                      const SocialContainer(
+                          imagePath: 'assets/images/ic_face.svg'),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 33.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      appLocalizations.createAccount,
+                      style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        fontSize: 15.sp,
-                        color: const Color(0xFF898989),
+                        fontSize: 15,
+                        color: provider.changeCardInactiveColor(),
                       ),
                     ),
-                    thickness: 1,
-                    color: const Color(0xFF898989),
-                    indent: 8,
-                    endIndent: 8),
-
-
-
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RegisterScreen.routeName);
+                      },
+                      child: GradientText(
+                        appLocalizations.register,
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w300,
+                        ),
+                        colors: const [
+                          Color(0xFFAB62FF),
+                          Color(0xFF4A28FF),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           )
