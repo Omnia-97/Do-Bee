@@ -17,7 +17,8 @@ class CustomTextFormFieldRegister extends StatefulWidget {
       this.onValidate,
       this.onFieldSubmitted,
       this.onEditingComplete,
-      this.onSaved, this.contentPadding,
+      this.onSaved,
+      this.contentPadding,
       super.key});
   String hintText;
   Widget? suffixIcon;
@@ -53,7 +54,7 @@ class _CustomTextFormFieldRegisterState
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword ?? false ? obscureText : !obscureText,
       decoration: InputDecoration(
-        contentPadding: widget.contentPadding ,
+        contentPadding: widget.contentPadding,
         border: GradientOutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
           width: 1.w,
@@ -80,7 +81,7 @@ class _CustomTextFormFieldRegisterState
             ],
           ),
         ),
-        focusedBorder:  GradientOutlineInputBorder(
+        focusedBorder: GradientOutlineInputBorder(
           width: 1.w,
           borderRadius: BorderRadius.circular(10.r),
           gradient: const LinearGradient(
@@ -98,7 +99,9 @@ class _CustomTextFormFieldRegisterState
                   });
                 },
                 child: Icon(
-                  obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                  obscureText
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
                   color: provider.themeMode == ThemeMode.light
                       ? Colors.grey
                       : Colors.white,
