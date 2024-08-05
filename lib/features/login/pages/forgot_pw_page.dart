@@ -2,6 +2,7 @@ import 'package:DooBee/core/config/app_theme_manager.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/custom_textformfield.dart';
@@ -78,6 +79,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       appBar: AppBar(
         iconTheme:  IconThemeData(
           color: provider.themeMode==ThemeMode.light?Colors.white:AppThemeManager.darkPrimaryColor,
+        ),
+        leading: Container(
+          width: 46.w,
+          height: 46.h,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+
+          ),
         ),
         backgroundColor: AppThemeManager.primaryColor,
         title: Text(appLocalizations.forgetPassword,
