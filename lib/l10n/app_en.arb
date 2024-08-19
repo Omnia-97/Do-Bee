@@ -62,7 +62,10 @@
   "resetPassword": "Password reset link sent! check your Email",
   "reset": "Reset Password!",
   "resetTitle": "Enter Your Email and we will send you a password reset link",
-  "welcomeBack": "Hi! Welcome back, you’ve been missed"
+  "welcomeBack": "Hi! Welcome back, you’ve been missed" ,
+  "newPassword" : "New Password",
+  "diffPass": "Your new password must be different from\nother previously used passwords."
+
 
 
 }

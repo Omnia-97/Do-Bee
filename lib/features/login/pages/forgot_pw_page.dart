@@ -1,10 +1,12 @@
-import 'package:DooBee/core/config/app_theme_manager.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../core/widgets/custom_nav.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/custom_textformfield.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -16,6 +18,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   var emailController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -76,42 +79,57 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     var theme = Theme.of(context);
     var provider = Provider.of<MyProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        iconTheme:  IconThemeData(
-          color: provider.themeMode==ThemeMode.light?Colors.white:AppThemeManager.darkPrimaryColor,
-        ),
-        leading: Container(
-          width: 46.w,
-          height: 46.h,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-
-          ),
-        ),
-        backgroundColor: AppThemeManager.primaryColor,
-        title: Text(appLocalizations.forgetPassword,
-            style: theme.textTheme.titleLarge),
-        toolbarHeight: 120,
-      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 26),
         child: Column(
           children: [
-            const SizedBox(
-              height: 15,
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Padding(
+                padding: EdgeInsets.only(top: 78.h),
+                child: const ReturnButton(),
+              ),
             ),
             Text(
-              appLocalizations.resetTitle,
-              style: theme.textTheme.displayMedium?.copyWith(height: 1.5),
+              appLocalizations.newPassword,
+              style: theme.textTheme.bodyLarge
+                  ?.copyWith(fontSize: 32.sp, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              appLocalizations.diffPass,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w300,
+                  color: const Color(0xFF898989)),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 90.h,
+            ),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                appLocalizations.email,
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w300,
+                  color: provider.changeCardInactiveColor(),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12.h,
             ),
             CustomTextFormFieldRegister(
               hintText: appLocalizations.emailHint,
-              suffixIcon: const Icon(Icons.email_rounded),
               controller: emailController,
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
+              //controller: emailController,
               keyboardType: TextInputType.emailAddress,
               onValidate: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -120,26 +138,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 return null;
               },
             ),
-            const SizedBox(
-              height: 25,
+            SizedBox(
+              height: 70.h,
             ),
-            ElevatedButton(
+            CustomButton(
               onPressed: resetPassword,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppThemeManager.primaryColor,
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Text(
-                appLocalizations.reset,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
-              ),
+              buttonText: appLocalizations.reset,
             ),
           ],
         ),

@@ -5,6 +5,7 @@ class AppThemeManager {
   static const Color primaryColor = Color(0xFF5D9CEC);
   static const Color darkPrimaryColor = Color(0xFF060E1E);
   static const Color darkSecondColor = Color(0xFF141922);
+  static const Color primaryPurpleColor = Color(0xFFAB62FF);
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
   static ThemeData lightTheme = ThemeData(
