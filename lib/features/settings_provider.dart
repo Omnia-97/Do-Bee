@@ -4,6 +4,7 @@ import 'package:DooBee/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../core/config/app_theme_manager.dart';
 import 'tasks/pages/tasks_view.dart';
 
@@ -17,6 +18,7 @@ class MyProvider extends ChangeNotifier {
   MyProvider() {
     initializeUser();
   }
+
   Future<void> initializeUser() async {
     firebaseUser = FirebaseAuth.instance.currentUser;
     if (firebaseUser != null) {
@@ -126,7 +128,7 @@ class MyProvider extends ChangeNotifier {
 
   Color changeCardTextColor() {
     if (themeMode == ThemeMode.light) {
-      return AppThemeManager.primaryColor;
+      return AppThemeManager.primaryPurpleColor;
     } else {
       return AppThemeManager.whiteColor;
     }

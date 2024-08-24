@@ -1,7 +1,5 @@
-import 'package:DooBee/core/config/app_theme_manager.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +9,7 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
     required this.buttonText,
   });
+
   final VoidCallback onPressed;
   final String buttonText;
 
@@ -28,7 +27,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.r),
           gradient: const LinearGradient(
             begin: AlignmentDirectional.topStart,
-            end:AlignmentDirectional.bottomEnd,
+            end: AlignmentDirectional.bottomEnd,
             colors: [
               Color(0xFFAB62FF),
               Color(0xFF4A28FF),

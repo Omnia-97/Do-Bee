@@ -11,17 +11,17 @@ class AppThemeManager {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: primaryColor,
+      backgroundColor: whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
         side: const BorderSide(
-          color: Colors.white,
+          color: primaryPurpleColor,
           width: 4,
         ),
       ),
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-    bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 0,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
@@ -85,7 +85,7 @@ class AppThemeManager {
         ),
       ),
     ),
-    bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
       elevation: 0,
       selectedIconTheme: const IconThemeData(
