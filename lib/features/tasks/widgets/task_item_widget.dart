@@ -11,6 +11,7 @@ import '../../../core/config/app_theme_manager.dart';
 
 class TaskItemWidget extends StatefulWidget {
   TaskModel taskModel;
+
   TaskItemWidget({required this.taskModel, super.key});
 
   @override
@@ -40,7 +41,8 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                       title: Text(
                         '${appLocalization.dear} ${provider.userModel!.fullName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: provider.changeCardInactiveColor()),
+                        style: TextStyle(
+                            color: provider.changeCardInactiveColor()),
                       ),
                       content: Builder(builder: (context) {
                         return Container(
@@ -50,7 +52,9 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                           child: Text(
                             appLocalization.deleteAlert,
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400,color: provider.changeCardInactiveColor()),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: provider.changeCardInactiveColor()),
                           ),
                         );
                       }),
@@ -61,10 +65,12 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                                 widget.taskModel.id ?? "");
                             Navigator.pop(context);
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: provider.changeCardColor(),),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: provider.changeCardColor(),
+                          ),
                           child: Text(
                             appLocalization.yes,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppThemeManager.primaryColor,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -75,10 +81,12 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: provider.changeCardColor(),),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: provider.changeCardColor(),
+                          ),
                           child: Text(
                             appLocalization.cancel,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppThemeManager.primaryColor,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -138,7 +146,7 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
@@ -162,17 +170,17 @@ class _TaskItemWidgetState extends State<TaskItemWidget> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: [
-                       Icon(
+                      Icon(
                         Icons.alarm,
                         size: 20,
-                         color: widget.taskModel.isDone!
-                             ? Colors.grey
-                             : provider.changeCardInactiveColor(),
+                        color: widget.taskModel.isDone!
+                            ? Colors.grey
+                            : provider.changeCardInactiveColor(),
                       ),
                       const SizedBox(
                         width: 5,

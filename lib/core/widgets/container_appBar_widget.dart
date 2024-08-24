@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../config/app_theme_manager.dart';
 
 class ContainerAppBarWidget extends StatelessWidget {
@@ -6,6 +7,7 @@ class ContainerAppBarWidget extends StatelessWidget {
     required this.text,
     super.key,
   });
+
   String text;
 
   @override
@@ -20,6 +22,9 @@ class ContainerAppBarWidget extends StatelessWidget {
           horizontal: 26,
           vertical: 70,
         ),
-        child: Text(text, style: theme.textTheme.titleLarge));
+        child: Text(
+          text,
+          style: theme.textTheme.titleLarge,
+        ));
   }
 }

@@ -41,13 +41,15 @@
   "validatePassword":"Password required",
   "forgetPassword": "Forgot password ?",
   "or": "Or Sign In With",
+  "orSignUp": "Or Sign Up With",
   "gogLogin": "Login with Google",
   "faceLogin": "Login with Facebook",
   "createAccount": "Don’t have an account? ",
-  "register": "Register",
+  "haveAccount": "Already have an account? ",
+  "register": "Sign Up",
   "create": "Create Account",
-  "fullName":"Full Name",
-  "nameHint": "Enter your Name Full Name",
+  "fullName":"Name",
+  "nameHint": "Omnia Nabil",
   "validateName": "please enter your full name",
   "validateEmail2": "Invalid Email , please Enter a valid one",
   "validatePassword2": "Invalid password \n* the password must be Minimum eight characters,\n* at least one uppercase letter,\n* one lowercase letter,\n* one number and one special character",
@@ -62,7 +64,11 @@
   "resetPassword": "Password reset link sent! check your Email",
   "reset": "Reset Password!",
   "resetTitle": "Enter Your Email and we will send you a password reset link",
-  "welcomeBack": "Hi! Welcome back, you’ve been missed"
+  "welcomeBack": "Hi! Welcome back, you’ve been missed" ,
+  "newPassword" : "New Password",
+  "diffPass": "Your new password must be different from\nother previously used passwords.",
+  "fillInfo": "Fill your information below or register\n with your social account"
+
 
 
 }

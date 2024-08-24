@@ -5,32 +5,33 @@ class AppThemeManager {
   static const Color primaryColor = Color(0xFF5D9CEC);
   static const Color darkPrimaryColor = Color(0xFF060E1E);
   static const Color darkSecondColor = Color(0xFF141922);
+  static const Color primaryPurpleColor = Color(0xFFAB62FF);
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Colors.white;
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: primaryColor,
+      backgroundColor: whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
         side: const BorderSide(
-          color: Colors.white,
+          color: primaryPurpleColor,
           width: 4,
         ),
       ),
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 0,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
-      selectedIconTheme: IconThemeData(
-        color: primaryColor,
-        size: 38,
+      selectedIconTheme: const IconThemeData(
+        color: primaryPurpleColor,
+        size: 30,
       ),
       unselectedIconTheme: IconThemeData(
-        color: Color(0xFFC8C9CB),
-        size: 30,
+        color: blackColor.withOpacity(0.2),
+        size: 28,
       ),
       showSelectedLabels: false,
       showUnselectedLabels: false,
@@ -84,15 +85,15 @@ class AppThemeManager {
         ),
       ),
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      selectedIconTheme: IconThemeData(
-        color: primaryColor,
-        size: 35,
+      selectedIconTheme: const IconThemeData(
+        color: primaryPurpleColor,
+        size: 30,
       ),
       unselectedIconTheme: IconThemeData(
-        color: Color(0xFFC8C9CB),
+        color: blackColor.withOpacity(0.2),
         size: 28,
       ),
       showSelectedLabels: false,
