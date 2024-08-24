@@ -3,12 +3,12 @@ import 'package:DooBee/features/login/pages/login_screen.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:DooBee/firebase/firebase_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:text_divider/text_divider.dart';
-import '../../../core/config/app_theme_manager.dart';
+
 import '../../../core/widgets/custom_nav.dart';
 import '../../login/widgets/custom_button.dart';
 import '../../login/widgets/custom_textformfield.dart';
@@ -32,6 +32,7 @@ class RegisterScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
+
   RegisterScreen({super.key});
 
   @override
@@ -43,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 26.h),
+        padding: EdgeInsets.symmetric(horizontal: 26.h),
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
@@ -96,8 +97,8 @@ class RegisterScreen extends StatelessWidget {
                       CustomTextFormFieldRegister(
                         hintText: appLocalization.nameHint,
                         controller: fullNameController,
-                        contentPadding:
-                        EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.h, horizontal: 20.w),
                         //controller: emailController,
                         keyboardType: TextInputType.text,
                         onValidate: (value) {
@@ -124,13 +125,17 @@ class RegisterScreen extends StatelessWidget {
                       CustomTextFormFieldRegister(
                         hintText: appLocalization.emailHint,
                         controller: emailController,
-                        contentPadding:
-                        EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.h, horizontal: 20.w),
                         //controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         onValidate: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return appLocalization.validateEmail;
+                          }
+                          var regexp = RegExp(emailPattern);
+                          if (!regexp.hasMatch(value)) {
+                            return appLocalization.validateEmail2;
                           }
                           return null;
                         },
@@ -152,18 +157,20 @@ class RegisterScreen extends StatelessWidget {
                       CustomTextFormFieldRegister(
                         hintText: appLocalization.passwordHint,
                         controller: passwordController,
-                        contentPadding:
-                        EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.h, horizontal: 20.w),
                         isPassword: true,
-                        //controller: passwordController,
                         onValidate: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return appLocalization.validatePassword;
                           }
+                          var regexp = RegExp(passPattern);
+                          if (!regexp.hasMatch(value)) {
+                            return appLocalization.validatePassword2;
+                          }
                           return null;
                         },
                       ),
-
                       SizedBox(
                         height: 33.h,
                       ),
@@ -191,7 +198,8 @@ class RegisterScreen extends StatelessWidget {
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Text(appLocalization.tryAgain),
+                                            child:
+                                                Text(appLocalization.tryAgain),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {},
@@ -240,8 +248,8 @@ class RegisterScreen extends StatelessWidget {
                             InkWell(
                               onTap: () async {
                                 FirebaseFunctions.signInWithGoogle();
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, LayoutView.routeName, (route) => false);
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    LayoutView.routeName, (route) => false);
                               },
                               child: const SocialContainer(
                                   imagePath: 'assets/images/ic_google.svg'),
