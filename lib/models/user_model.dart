@@ -11,6 +11,7 @@ class UserModel {
     required this.email,
     this.fullName = '',
   });
+
   UserModel.fromJson(Map<String, dynamic> json)
       : this(
           id: json['id'],
@@ -18,6 +19,7 @@ class UserModel {
           fullName: json['fullName'],
           emailVerified: json['emailVerified'],
         );
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

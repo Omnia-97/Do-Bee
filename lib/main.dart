@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:DooBee/features/edit_tasks/pages/edit_task.dart';
 import 'package:DooBee/features/layout_home/layout_view.dart';
 import 'package:DooBee/features/login/pages/login_screen.dart';
@@ -6,13 +7,14 @@ import 'package:DooBee/features/onboarding/onboarding_screen.dart';
 import 'package:DooBee/features/register/pages/register_screen.dart';
 import 'package:DooBee/features/settings_provider.dart';
 import 'package:DooBee/features/splash/pages/splash_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'core/config/app_theme_manager.dart';
 import 'firebase_options.dart';
 
@@ -27,7 +29,6 @@ void main() async {
   const fatalError = true;
   // Non-async exceptions
   FlutterError.onError = (errorDetails) {
-
     if (fatalError) {
       // If you want to record a "fatal" exception
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -85,12 +86,11 @@ class MyApp extends StatelessWidget {
             : SplashView.routeName,
         routes: {
           SplashView.routeName: (context) => const SplashView(),
-          OnboardingScreen.routeName: (context) =>  OnboardingScreen(),
+          OnboardingScreen.routeName: (context) => const OnboardingScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           RegisterScreen.routeName: (context) => RegisterScreen(),
           LayoutView.routeName: (context) => const LayoutView(),
           EditTask.routeName: (context) => const EditTask(),
-
         },
       ),
     );

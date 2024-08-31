@@ -11,6 +11,7 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.initialValue,
   });
+
   String hintText;
   TextEditingController? controller;
   final String? Function(String?)? onValidate;

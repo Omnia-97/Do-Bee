@@ -4,23 +4,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:provider/provider.dart';
-import '../../../core/config/app_theme_manager.dart';
 
 class CustomTextFormFieldSearch extends StatefulWidget {
   CustomTextFormFieldSearch(
-      {
-        this.suffixIcon,
-        this.isPassword,
-        this.controller,
-        this.keyboardType,
-        this.onTap,
-        this.onChanged,
-        this.onValidate,
-        this.onFieldSubmitted,
-        this.onEditingComplete,
-        this.onSaved,
-        this.contentPadding,
-        super.key});
+      {this.suffixIcon,
+      this.isPassword,
+      this.controller,
+      this.keyboardType,
+      this.onTap,
+      this.onChanged,
+      this.onValidate,
+      this.onFieldSubmitted,
+      this.onEditingComplete,
+      this.onSaved,
+      this.contentPadding,
+      super.key});
 
   Widget? suffixIcon;
   final EdgeInsetsGeometry? contentPadding;
@@ -36,9 +34,9 @@ class CustomTextFormFieldSearch extends StatefulWidget {
       _CustomTextFormFieldSearchState();
 }
 
-class _CustomTextFormFieldSearchState
-    extends State<CustomTextFormFieldSearch> {
+class _CustomTextFormFieldSearchState extends State<CustomTextFormFieldSearch> {
   bool obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -55,51 +53,51 @@ class _CustomTextFormFieldSearchState
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword ?? false ? obscureText : !obscureText,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(left: 18.w),
-        border: GradientOutlineInputBorder(
-          borderRadius: BorderRadius.circular(35.r),
-          width: 1.w,
-          gradient: const LinearGradient(
-            colors: [
-              Color(0xFFD9B8FF),
-              Color(0xFFAB62FF),
-            ],
+          contentPadding: EdgeInsets.only(left: 18.w),
+          border: GradientOutlineInputBorder(
+            borderRadius: BorderRadius.circular(35.r),
+            width: 1.w,
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFD9B8FF),
+                Color(0xFFAB62FF),
+              ],
+            ),
           ),
-        ),
-        hintText: "Search task....",
-        hintStyle: theme.textTheme.bodyLarge!.copyWith(
-          fontSize: 13.sp,
-          fontWeight: FontWeight.w300,
-          color: const Color(0xFF898989),
-        ),
-        enabledBorder: GradientOutlineInputBorder(
-          borderRadius: BorderRadius.circular(35.r),
-          width: 1.w,
-          gradient: const LinearGradient(
-            colors: [
-              Color(0xFFD9B8FF),
-              Color(0xFFAB62FF),
-            ],
+          hintText: "Search task....",
+          hintStyle: theme.textTheme.bodyLarge!.copyWith(
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w300,
+            color: const Color(0xFF898989),
           ),
-        ),
-        focusedBorder: GradientOutlineInputBorder(
-          width: 1.w,
-          borderRadius: BorderRadius.circular(35.r),
-          gradient: const LinearGradient(
-            colors: [
-              Color(0xFFD9B8FF),
-              Color(0xFFAB62FF),
-            ],
+          enabledBorder: GradientOutlineInputBorder(
+            borderRadius: BorderRadius.circular(35.r),
+            width: 1.w,
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFD9B8FF),
+                Color(0xFFAB62FF),
+              ],
+            ),
           ),
-        ),
-        suffixIcon: Padding(
-          padding:  EdgeInsets.only(top: 11.h, bottom: 12.h,right: 4.w),
-          child: SvgPicture.asset(provider.themeMode == ThemeMode.light
-              ? "assets/images/ic_search_light.svg"
-              : "assets/images/dark_theme/ic_search_dark.svg",),
-        )
-
-      ),
+          focusedBorder: GradientOutlineInputBorder(
+            width: 1.w,
+            borderRadius: BorderRadius.circular(35.r),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFD9B8FF),
+                Color(0xFFAB62FF),
+              ],
+            ),
+          ),
+          suffixIcon: Padding(
+            padding: EdgeInsets.only(top: 11.h, bottom: 12.h, right: 4.w),
+            child: SvgPicture.asset(
+              provider.themeMode == ThemeMode.light
+                  ? "assets/images/ic_search_light.svg"
+                  : "assets/images/dark_theme/ic_search_dark.svg",
+            ),
+          )),
     );
   }
 }

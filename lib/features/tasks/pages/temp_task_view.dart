@@ -2,15 +2,16 @@ import 'package:DooBee/firebase/firebase_functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/config/app_theme_manager.dart';
 import '../../../core/widgets/container_appBar_widget.dart';
 import '../../../models/task_model.dart';
 import '../../login/pages/login_screen.dart';
 import '../../settings_provider.dart';
 import '../widgets/task_item_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TasksView extends StatefulWidget {
   const TasksView({super.key});
@@ -21,6 +22,7 @@ class TasksView extends StatefulWidget {
 
 class _TasksViewState extends State<TasksView> {
   var focusDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -36,64 +38,67 @@ class _TasksViewState extends State<TasksView> {
             alignment: const Alignment(0, 2.0),
             clipBehavior: Clip.none,
             children: [
-              isTextDirectionRTL?Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  ContainerAppBarWidget(text: appLocalization.todoList),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 42),
-                    child: Text(
-                      appLocalization.logout,
-                      style: TextStyle(color: provider.changeLogoutColor()),
+              isTextDirectionRTL
+                  ? Stack(
+                      alignment: Alignment.centerLeft,
+                      children: [
+                        ContainerAppBarWidget(text: appLocalization.todoList),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 42),
+                          child: Text(
+                            appLocalization.logout,
+                            style:
+                                TextStyle(color: provider.changeLogoutColor()),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            GoogleSignIn googleSignIn = GoogleSignIn();
+                            googleSignIn.disconnect();
+                            FirebaseFunctions.signOut();
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                LoginScreen.routeName, (route) => false);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Icon(
+                              Icons.logout,
+                              color: provider.changeLogoutColor(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        ContainerAppBarWidget(text: appLocalization.todoList),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 42),
+                          child: Text(
+                            appLocalization.logout,
+                            style:
+                                TextStyle(color: provider.changeLogoutColor()),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            GoogleSignIn googleSignIn = GoogleSignIn();
+                            googleSignIn.disconnect();
+                            FirebaseFunctions.signOut();
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                LoginScreen.routeName, (route) => false);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Icon(
+                              Icons.logout,
+                              color: provider.changeLogoutColor(),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      GoogleSignIn googleSignIn = GoogleSignIn();
-                      googleSignIn.disconnect();
-                      FirebaseFunctions.signOut();
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, LoginScreen.routeName, (route) => false);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Icon(
-                        Icons.logout,
-                        color: provider.changeLogoutColor(),
-                      ),
-                    ),
-                  ),
-                ],
-              ):
-              Stack(
-                alignment: Alignment.centerRight,
-                children: [
-                  ContainerAppBarWidget(text: appLocalization.todoList),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 42),
-                    child: Text(
-                      appLocalization.logout,
-                      style: TextStyle(color: provider.changeLogoutColor()),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      GoogleSignIn googleSignIn = GoogleSignIn();
-                      googleSignIn.disconnect();
-                      FirebaseFunctions.signOut();
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, LoginScreen.routeName, (route) => false);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Icon(
-                        Icons.logout,
-                        color:provider.changeLogoutColor(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               EasyInfiniteDateTimeLine(
                 locale: provider.languageCode,
                 showTimelineHeader: false,
@@ -159,7 +164,7 @@ class _TasksViewState extends State<TasksView> {
                 ),
                 onDateChange: (selectedDate) {
                   setState(
-                        () {
+                    () {
                       focusDate = selectedDate;
                     },
                   );
@@ -183,7 +188,7 @@ class _TasksViewState extends State<TasksView> {
                     Text(appLocalization.isError),
                     ElevatedButton(
                       onPressed: () {},
-                      child:  Text(appLocalization.tryAgain),
+                      child: Text(appLocalization.tryAgain),
                     ),
                   ],
                 );
@@ -191,8 +196,11 @@ class _TasksViewState extends State<TasksView> {
               var tasks =
                   snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
               if (tasks.isEmpty) {
-                return  Center(
-                  child: Text(appLocalization.noTasks, style: TextStyle(color: provider.changeCardTextColor()),),
+                return Center(
+                  child: Text(
+                    appLocalization.noTasks,
+                    style: TextStyle(color: provider.changeCardTextColor()),
+                  ),
                 );
               }
               return ListView.builder(
